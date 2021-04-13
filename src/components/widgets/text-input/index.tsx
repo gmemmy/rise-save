@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import validator from 'validator';
 import {FormField} from '../../../interface';
 import {theme} from '../../../style/theme';
-import validationErrors from '../../../services/response-messages';
 
 // components
 import TouchableItem from '../buttons/touchable-item';
