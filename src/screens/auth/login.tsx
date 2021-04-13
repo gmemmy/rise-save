@@ -36,8 +36,7 @@ const SubText = styled.Text`
 
 const InputFieldsWrapper = styled.View`
   justify-content: space-between;
-  margin-top: 25px;
-  height: 126px;
+  margin-top: 5px;
   width: 100%;
 `;
 
@@ -70,7 +69,10 @@ const Login = () => {
           <InputField placeholder="Password" type="password" />
         </InputFieldsWrapper>
         <ButtonWrapper>
-          <ColoredButton isLoading={loading} onPress={() => handelLogin()}>
+          <ColoredButton
+            disabled={loading}
+            isLoading={loading}
+            onPress={() => handelLogin()}>
             Sign In
           </ColoredButton>
         </ButtonWrapper>
