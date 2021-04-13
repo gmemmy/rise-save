@@ -5,6 +5,7 @@ export const theme = {
     dark: '#012224',
     offTeal: '#E6F5F6',
     defaultTeal: '#0898A0',
+    grey: '#838F91',
   },
   font: {
     light: 'Gelion-Light',

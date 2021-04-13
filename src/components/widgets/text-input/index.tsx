@@ -9,7 +9,7 @@ import {theme} from '../../../style/theme';
 import TouchableItem from '../buttons/touchable-item';
 
 // icons
-import eye from '../../../../assets/icons/eye.png';
+import EyeIcon from '../../icons/eye';
 
 const Container = styled.View`
   width: 100%;
@@ -43,12 +43,6 @@ const Input = styled.TextInput`
   opacity: 0.8;
   position: absolute;
   padding-horizontal: 30px;
-`;
-
-const SecureIcon = styled.Image`
-  resize-mode: contain;
-  height: 15.74px;
-  width: 23px;
 `;
 
 const ValidationErrorMessage = styled.Text`
@@ -108,7 +102,7 @@ const InputField = ({placeholder, type}: FormField) => {
               position: 'absolute',
               marginLeft: '90%',
             }}>
-            <SecureIcon source={eye} />
+            <EyeIcon fill={theme.colors.defaultTeal} width={23} height={23} />
           </TouchableItem>
         )}
       </FormWrapper>

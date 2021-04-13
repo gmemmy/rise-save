@@ -15,11 +15,11 @@ const MyTheme = {
 };
 
 export function Navigator({token}: {token: boolean}) {
-  console.log(token);
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={MyTheme}>
-        {!token ? <AuthApp /> : <MainApp />}
+        {/* {!token ? <AuthApp /> : <MainApp />} */}
+        <MainApp />
       </NavigationContainer>
     </SafeAreaProvider>
   );

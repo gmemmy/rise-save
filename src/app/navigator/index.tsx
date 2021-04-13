@@ -6,7 +6,7 @@ import BaseThemeProvider from '../../init/styles';
 export const App = () => {
   return (
     <BaseThemeProvider>
-      <Navigator token={false} />
+      <Navigator token={true} />
     </BaseThemeProvider>
   );
 };

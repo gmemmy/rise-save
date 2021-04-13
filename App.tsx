@@ -10,7 +10,7 @@ import * as React from 'react';
 import AppNavigator from './src/app/navigator';
 
 const App = () => {
-  return <AppNavigator />;
+  return <AppNavigator token={false} />;
 };
 
 export default App;

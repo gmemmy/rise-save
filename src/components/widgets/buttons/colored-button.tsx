@@ -15,7 +15,10 @@ const Ripple = styled(TouchableRipple)`
   height: 55px;
 `;
 
-const ButtonContainer = styled(LinearGradient)<{disabled?: boolean}>`
+const ButtonContainer = styled(LinearGradient)<{
+  disabled?: boolean;
+  color?: string;
+}>`
   flex: 1;
   z-index: -1;
   border-radius: 6px;
@@ -29,17 +32,22 @@ const ButtonContainer = styled(LinearGradient)<{disabled?: boolean}>`
   shadow-radius: 4px;
   shadow-offset: 0 1px;
   shadow-color: rgba(15, 15, 15, 0.1);
-  border-color: ${theme.colors.defaultTeal};
+  border-color: ${({color}) => (color ? color : theme.colors.defaultTeal)};
   border-width: 1px;
-  background-color: ${theme.colors.defaultTeal};
+  background-color: ${({color}) => (color ? color : theme.colors.defaultTeal)};
 `;
 
 export const ColoredButton = React.memo(function ({
   children,
   onPress,
   isLoading,
+  color,
   ...props
-}: TouchableRipple['props'] & {isLoading?: boolean; icon?: React.ReactNode}) {
+}: TouchableRipple['props'] & {
+  isLoading?: boolean;
+  icon?: React.ReactNode;
+  color?: string;
+}) {
   function handleOnPress(event: GestureResponderEvent) {
     requestAnimationFrame(() => {
       onPress && onPress(event);
@@ -53,15 +61,18 @@ export const ColoredButton = React.memo(function ({
 
     return (
       <React.Fragment>
-        <ButtonText>{children}</ButtonText>
+        <ButtonText color={color && theme.colors.defaultTeal}>
+          {children}
+        </ButtonText>
       </React.Fragment>
     );
-  }, [children, isLoading]);
-
+  }, [children, color, isLoading]);
   return (
     <Ripple
       {...props}
-      rippleColor="rgba(255, 255, 255, 0.8)"
+      rippleColor={
+        color ? 'rgba(8, 152, 160, 0.8)' : 'rgba(255, 255, 255, 0.8)'
+      }
       accessibilityLabel="Button"
       accessibilityTraits={props.disabled ? ['button', 'disabled'] : 'button'}
       accessibilityComponentType="button"
@@ -71,10 +82,15 @@ export const ColoredButton = React.memo(function ({
       rippleContainerBorderRadius={6}
       onPress={handleOnPress}>
       <ButtonContainer
+        color={color}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         disabled={props.disabled}
-        colors={[theme.colors.defaultTeal, theme.colors.defaultTeal]}>
+        colors={
+          color
+            ? [color, color]
+            : [theme.colors.defaultTeal, theme.colors.defaultTeal]
+        }>
         {renderItem()}
       </ButtonContainer>
     </Ripple>
