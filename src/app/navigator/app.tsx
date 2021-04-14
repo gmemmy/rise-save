@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import {View, GestureResponderEvent, Platform} from 'react-native';
+import {View, GestureResponderEvent} from 'react-native';
 import {
   createBottomTabNavigator,
   BottomTabBar,
@@ -26,6 +26,7 @@ const MainTabs = () => {
             <TouchableRipple
               rippleColor={theme.colors.defaultTeal}
               accessibilityLabel="Tab Button"
+              // @ts-ignore
               accessibilityTraits={'button'}
               accessibilityComponentType="button"
               accessibilityRole="button"
@@ -67,7 +68,7 @@ const MainTabs = () => {
             backgroundColor: theme.colors.white,
             paddingHorizontal: 0,
             paddingVertical: 0,
-            height: 90,
+            height: 70,
             elevation: 10,
             shadowColor: theme.colors.grey,
             shadowOffset: {width: 0, height: 20},
