@@ -6,6 +6,7 @@ import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import Wallet from '../../screens/wallet';
 import FundWallet from '../../screens/wallet/fund-wallet';
 import ConfirmAmount from '../../screens/wallet/confirm-amount';
+import ChooseCard from '../../screens/wallet/choose-card';
 import {theme} from '../../style/theme';
 
 const arrowLeft = require('../../../assets/images/arrow-left.png');
@@ -179,6 +180,41 @@ const HomeStack = () => {
         })}
         name="Confirm Amount"
         component={ConfirmAmount}
+      />
+      <Stack.Screen
+        options={({}) => ({
+          headerShown: true,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              label=""
+              truncatedLabel=""
+              backImage={() => (
+                <View
+                  style={{
+                    height: 33,
+                    width: 33,
+                    borderRadius: 33 / 2,
+                    backgroundColor: theme.colors.offTeal,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 20,
+                  }}>
+                  <FastImage
+                    source={arrowLeft}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      height: 14,
+                      width: 14,
+                    }}
+                  />
+                </View>
+              )}
+            />
+          ),
+        })}
+        name="Choose Naira Card"
+        component={ChooseCard}
       />
     </Stack.Navigator>
   );

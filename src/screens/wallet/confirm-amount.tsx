@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {vs} from 'react-native-size-matters';
+import {ms, vs, s} from 'react-native-size-matters';
 import styled from 'styled-components/native';
+import {useNavigation} from '@react-navigation/native';
 import {theme} from '../../style/theme';
 import {sizeScale} from '../../utils';
 
@@ -10,7 +11,7 @@ import ColoredButton from '../../components/widgets/buttons/colored-button';
 const Container = styled.View`
   flex: 1;
   background-color: ${theme.colors.white};
-  padding-horizontal: 25px;
+  padding-horizontal: ${sizeScale(s(24), 'px')};
   align-items: center;
 `;
 
@@ -23,16 +24,16 @@ const ContentWrapper = styled.View`
 const AmountToDeposit = styled.Text`
   color: ${theme.colors.dark};
   font-family: Gelion-Bold;
-  font-size: 40px;
-  line-height: 48px;
+  font-size: ${sizeScale(ms(40, 0.3), 'px')};
+  line-height: ${sizeScale(vs(48), 'px')};
 `;
 
 const CurrencySymbol = styled.Text`
-  font-size: 20px;
+  font-size: ${sizeScale(ms(20, 0.3), 'px')};
 `;
 
 const AllDetailsWrapper = styled.View`
-  margin-top: 13px;
+  margin-top: ${sizeScale(vs(13), 'px')};
   align-items: center;
   width: 100%;
 `;
@@ -48,32 +49,34 @@ const DetailsContainer = styled.View`
 const DetailsTitle = styled.Text`
   color: ${theme.colors.grey};
   font-family: Gelion-Regular;
-  font-size: 15px;
-  line-height: 20px;
+  font-size: ${sizeScale(ms(15, 0.2), 'px')};
+  line-height: ${sizeScale(vs(20), 'px')};
 `;
 
 const DetailsValue = styled.Text`
   color: ${theme.colors.dark};
   font-family: Gelion-Regular;
-  font-size: 15px;
-  line-height: 20px;
+  font-size: ${sizeScale(ms(15, 0.2), 'px')};
+  line-height: ${sizeScale(vs(20), 'px')};
 `;
 
 const HorizontalRuler = styled.View`
   height: 1px;
   background-color: rgba(181, 181, 181, 0.2);
   width: 100%;
-  margin-top: 13px;
+  margin-top: ${sizeScale(vs(13), 'px')};
 `;
 
 const ButtonWrapper = styled.View`
   height: 55px;
-  width: 308px;
+  width: 368px;
   margin-top: auto;
-  margin-bottom: 39px;
+  margin-bottom: ${sizeScale(vs(39), 'px')};
 `;
 
 const ConfirmAmount = () => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <ContentWrapper>
@@ -101,8 +104,13 @@ const ConfirmAmount = () => {
         </AllDetailsWrapper>
       </ContentWrapper>
       <ButtonWrapper>
-        <ColoredButton disabled={false} isLoading={false} onPress={() => {}}>
-          Add Money
+        <ColoredButton
+          disabled={false}
+          isLoading={false}
+          onPress={() => {
+            navigation.navigate('Choose Naira Card');
+          }}>
+          Add ₦4,263
         </ColoredButton>
       </ButtonWrapper>
     </Container>
