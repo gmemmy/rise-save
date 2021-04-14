@@ -3,6 +3,9 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 import {vs, s, ms} from 'react-native-size-matters';
+import * as Animatable from 'react-native-animatable';
+import {useNavigation} from '@react-navigation/native';
+import Shimmer from 'react-native-shimmer';
 import {theme} from '../../style/theme';
 import {sizeScale} from '../../utils/index';
 
@@ -11,6 +14,7 @@ const arrowRight = require('../../../assets/images/arrow-right.png');
 
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
+import TouchableItem from '../../components/widgets/buttons/touchable-item';
 
 const Container = styled.View`
   flex: 1;
@@ -131,7 +135,13 @@ const ButtonWrapper = styled.View`
   margin-top: 44.6px;
 `;
 
+const AnimatedRateContainer = Animatable.createAnimatableComponent(
+  RateContainer,
+);
+
 const FundWallet = () => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <ContentWrapper>
@@ -143,14 +153,16 @@ const FundWallet = () => {
           </HalfPaymentFormatContainer>
           <VerticalRule />
           <ArrowWrapper>
-            <FastImage
-              source={arrowRight}
-              resizeMode={FastImage.resizeMode.contain}
-              style={{
-                height: 14,
-                width: 14,
-              }}
-            />
+            <Shimmer animating intensity={1}>
+              <FastImage
+                source={arrowRight}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{
+                  height: 14,
+                  width: 14,
+                }}
+              />
+            </Shimmer>
           </ArrowWrapper>
           <HalfPaymentFormatContainer align="flex-end">
             <PaymentFormatContainerHeader>
@@ -164,19 +176,26 @@ const FundWallet = () => {
             <CurrencySymbol>₦</CurrencySymbol>
             <CurrencySymbol>4,200.00</CurrencySymbol>
           </CurrencyValue>
-          <RateContainer>
-            <WalletBalance>1 $ = ₦420</WalletBalance>
-            <RateReasonWrapper>
-              <RateReasonText>Why this rate?</RateReasonText>
-            </RateReasonWrapper>
-          </RateContainer>
+          <TouchableItem>
+            <AnimatedRateContainer animation="bounce">
+              <WalletBalance>1 $ = ₦420</WalletBalance>
+              <RateReasonWrapper>
+                <RateReasonText>Why this rate?</RateReasonText>
+              </RateReasonWrapper>
+            </AnimatedRateContainer>
+          </TouchableItem>
           <CurrencyValue>
             <CurrencySymbol>$</CurrencySymbol>
             <CurrencySymbol>10.00</CurrencySymbol>
           </CurrencyValue>
         </CurrencyValueWrapper>
         <ButtonWrapper>
-          <ColoredButton disabled={false} isLoading={false} onPress={() => {}}>
+          <ColoredButton
+            disabled={false}
+            isLoading={false}
+            onPress={() => {
+              navigation.navigate('Confirm Amount');
+            }}>
             Add Money
           </ColoredButton>
         </ButtonWrapper>
