@@ -9,3 +9,11 @@ type MapFontFromTheme = <T>(
 export const getFontFromTheme: MapFontFromTheme = (font: Fonts) => {
   return (props): string => props.theme.font[font];
 };
+
+const Scaler = {
+  px: 'px',
+  '%': '%',
+};
+
+export const sizeScale = (size: number, scale: keyof typeof Scaler) =>
+  `${size}${scale}`;

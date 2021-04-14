@@ -1,7 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
+import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
+import {useNavigation} from '@react-navigation/native';
 
 // components
 import WalletBalance from '../../components/template/wallet-balance';
@@ -11,6 +13,7 @@ const Container = styled.View`
   flex: 1;
   background-color: ${theme.colors.white};
   padding-horizontal: 16px;
+  height: 100%;
 `;
 
 const WalletBalanceWrapper = styled.View`
@@ -25,24 +28,34 @@ const ButtonsWrapper = styled.View`
 `;
 
 const Wallet = () => {
+  const navigation = useNavigation();
   return (
     <Container>
+      <StatusBar
+        barStyle="dark-content"
+        networkActivityIndicatorVisible={true}
+        translucent={true}
+        backgroundColor={theme.colors.white}
+        animated={true}
+        showHideTransition="slide"
+      />
       <WalletBalanceWrapper>
         <WalletBalance />
         <ButtonsWrapper>
           <ColoredButton
             color={theme.colors.offTeal}
             style={{
-              width: 163,
+              width: 180,
               height: 55,
             }}>
             Send Money
           </ColoredButton>
           <ColoredButton
             style={{
-              width: 163,
+              width: 180,
               height: 55,
-            }}>
+            }}
+            onPress={() => navigation.navigate('Debit Card')}>
             Fund Wallet
           </ColoredButton>
         </ButtonsWrapper>

@@ -12,7 +12,7 @@ import Loader from '../loader';
 const Ripple = styled(TouchableRipple)`
   border-radius: 5px;
   width: 100%;
-  height: 55px;
+  height: 100%;
 `;
 
 const ButtonContainer = styled(LinearGradient)<{
@@ -74,6 +74,7 @@ export const ColoredButton = React.memo(function ({
         color ? 'rgba(8, 152, 160, 0.8)' : 'rgba(255, 255, 255, 0.8)'
       }
       accessibilityLabel="Button"
+      // @ts-ignore
       accessibilityTraits={props.disabled ? ['button', 'disabled'] : 'button'}
       accessibilityComponentType="button"
       accessibilityRole="button"

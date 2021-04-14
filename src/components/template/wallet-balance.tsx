@@ -2,10 +2,12 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
+import {ms} from 'react-native-size-matters';
+import {sizeScale} from '../../utils';
 
 // Icon
 import Eye from '../icons/eye';
-import wallet from '../../../assets/images/wallet.png';
+const wallet = require('../../../assets/images/wallet.png');
 
 // Components
 import TouchableItem from '../widgets/buttons/touchable-item';
@@ -38,7 +40,7 @@ const BalanceTitleAndIcon = styled.View`
 `;
 
 const BalanceTitle = styled.Text`
-  font-size: 11px;
+  font-size: ${sizeScale(ms(11, 0.2), 'px')};
   line-height: 13px;
   font-family: Gelion-Regular;
   color: ${theme.colors.grey};
@@ -48,7 +50,7 @@ const BalanceTitle = styled.Text`
 
 const Amount = styled.Text`
   font-weight: 600;
-  font-size: 22px;
+  font-size: ${sizeScale(ms(22, 0.2), 'px')};
   line-height: 28px;
   color: ${theme.colors.dark};
   font-family: Gelion-Medium;
@@ -83,12 +85,7 @@ const ContainerBottomWrapperText = styled.Text`
   text-align: center;
   font-family: Gelion-SemiBold;
   line-height: 13px;
-  font-size: 12px;
-`;
-
-const ButtonsWrapper = styled.View`
-  width: 100%;
-  justify-content: space-between;
+  font-size: ${sizeScale(ms(11, 0.2), 'px')};
 `;
 
 const WalletBalance = () => {
@@ -111,7 +108,7 @@ const WalletBalance = () => {
               <Eye fill={theme.colors.defaultTeal} height={15} width={15} />
             </TouchableItem>
           </BalanceTitleAndIcon>
-          <Amount>{isBalanceShown ? '$100,000.75' : '$******'}</Amount>
+          <Amount>{isBalanceShown ? '$100,000.75' : '**********'}</Amount>
         </BalanceAndTitleWrapper>
         <WalletIconWrapper>
           <WalletIcon source={wallet} />

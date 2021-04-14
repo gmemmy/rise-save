@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 import validator from 'validator';
 import {FormField} from '../../../interface';
 import {theme} from '../../../style/theme';
+import {ms} from 'react-native-size-matters';
+import {sizeScale} from '../../../utils';
 
 // components
 import TouchableItem from '../buttons/touchable-item';
@@ -38,7 +40,7 @@ const Input = styled.TextInput`
   width: 90%;
   color: ${theme.colors.dark};
   font-family: Gelion-SemiBold;
-  font-size: 17px;
+  font-size: ${sizeScale(ms(17, 0.2), 'px')};
   line-height: 22px;
   opacity: 0.8;
   position: absolute;
@@ -49,7 +51,7 @@ const ValidationErrorMessage = styled.Text`
   color: red;
   line-height: 20px;
   font-family: Gelion-Regular;
-  font-size: 12px;
+  font-size: ${sizeScale(ms(12, 0.2), 'px')};
 `;
 
 const InputField = ({placeholder, type}: FormField) => {
