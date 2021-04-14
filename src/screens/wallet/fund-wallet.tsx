@@ -15,6 +15,7 @@ const arrowRight = require('../../../assets/images/arrow-right.png');
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
 import TouchableItem from '../../components/widgets/buttons/touchable-item';
+import NumberInput from '../../components/widgets/text-input/number-input';
 
 const Container = styled.View`
   flex: 1;
@@ -135,6 +136,10 @@ const ButtonWrapper = styled.View`
   margin-top: 44.6px;
 `;
 
+const InputWrapper = styled.View`
+  height: 100%;
+`;
+
 const AnimatedRateContainer = Animatable.createAnimatableComponent(
   RateContainer,
 );
@@ -174,7 +179,9 @@ const FundWallet = () => {
         <CurrencyValueWrapper>
           <CurrencyValue>
             <CurrencySymbol>₦</CurrencySymbol>
-            <CurrencySymbol>4,200.00</CurrencySymbol>
+            <InputWrapper>
+              <NumberInput />
+            </InputWrapper>
           </CurrencyValue>
           <TouchableItem>
             <AnimatedRateContainer animation="bounce">
@@ -186,7 +193,9 @@ const FundWallet = () => {
           </TouchableItem>
           <CurrencyValue>
             <CurrencySymbol>$</CurrencySymbol>
-            <CurrencySymbol>10.00</CurrencySymbol>
+            <InputWrapper>
+              <NumberInput />
+            </InputWrapper>
           </CurrencyValue>
         </CurrencyValueWrapper>
         <ButtonWrapper>

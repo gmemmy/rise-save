@@ -8,6 +8,7 @@ import FundWallet from '../../screens/wallet/fund-wallet';
 import ConfirmAmount from '../../screens/wallet/confirm-amount';
 import ChooseCard from '../../screens/wallet/choose-card';
 import AddPaymentMethod from '../../screens/wallet/add-card-details';
+import PaymentSuccessful from '../../screens/wallet/payment-success';
 import {theme} from '../../style/theme';
 
 const arrowLeft = require('../../../assets/images/arrow-left.png');
@@ -251,6 +252,13 @@ const HomeStack = () => {
         })}
         name="Add Card Details"
         component={AddPaymentMethod}
+      />
+      <Stack.Screen
+        options={({}) => ({
+          headerShown: false,
+        })}
+        name="Payment Successful"
+        component={PaymentSuccessful}
       />
     </Stack.Navigator>
   );

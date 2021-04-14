@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
+import {useNavigation} from '@react-navigation/native';
 import {theme} from '../../style/theme';
 import {sizeScale} from '../../utils';
 import {vs} from 'react-native-size-matters';
@@ -45,6 +46,8 @@ const ButtonWrapper = styled.View`
 `;
 
 const AddPaymentMethod: React.FC = (): React.ReactElement => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <ContentWrapper>
@@ -61,7 +64,12 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
         </ContentBottomWrapper>
       </ContentWrapper>
       <ButtonWrapper>
-        <ColoredButton disabled={false} isLoading={false} onPress={() => {}}>
+        <ColoredButton
+          disabled={false}
+          isLoading={false}
+          onPress={() => {
+            navigation.navigate('Payment Successful');
+          }}>
           Add ₦4,263
         </ColoredButton>
       </ButtonWrapper>

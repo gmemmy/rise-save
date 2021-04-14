@@ -5,6 +5,7 @@ import validator from 'validator';
 import {FormField} from '../../../interface';
 import {theme} from '../../../style/theme';
 import {ms} from 'react-native-size-matters';
+import cardsy from 'cardsy';
 import {sizeScale} from '../../../utils';
 
 // components
@@ -26,7 +27,7 @@ const FormWrapper = styled.View`
   align-items: center;
 `;
 
-const Background = styled.View`
+const Background = styled.View<{borderColor?: string}>`
   flex: 1;
   opacity: 0.2;
   width: 100%;
@@ -82,6 +83,23 @@ const InputField = ({placeholder, type}: FormField) => {
     }
   };
 
+  const handleOnChangeText = (text: string) => {
+    switch (type) {
+      case 'card-number':
+        setValue(cardsy.format.number(text));
+        break;
+      case 'card-cvv':
+        setValue(cardsy.format.cvc(text));
+        break;
+      case 'card-expiry-number':
+        setValue(cardsy.format.expiryString(text, '/'));
+        break;
+      default:
+        setValue(text);
+        break;
+    }
+  };
+
   return (
     <Container>
       <FormWrapper>
@@ -91,8 +109,8 @@ const InputField = ({placeholder, type}: FormField) => {
           placeholderTextColor={theme.colors.dark}
           secureTextEntry={type === 'password' && hide}
           onChangeText={text => {
-            setValue(text);
             handleValidation(type);
+            handleOnChangeText(text);
           }}
           value={value}
           onBlur={() => handleValidation(type)}
