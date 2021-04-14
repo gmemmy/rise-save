@@ -1,7 +1,10 @@
 import * as React from 'react';
+import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {theme} from '../../style/theme';
+import {ms} from 'react-native-size-matters';
+import {sizeScale} from '../../utils';
 
 // components
 import InputField from '../../components/widgets/text-input';
@@ -21,13 +24,13 @@ const ContentWrapper = styled.View`
 const HeaderText = styled.Text`
   color: ${theme.colors.black};
   font-family: Gelion-Bold;
-  font-size: 20px;
+  font-size: ${sizeScale(ms(20, 0.2), 'px')};
   line-height: 34px;
 `;
 
 const SubText = styled.Text`
   color: ${theme.colors.dark};
-  font-size: 17px;
+  font-size: ${sizeScale(ms(17, 0.2), 'px')};
   line-height: 22px;
   font-family: Gelion-Regular;
   margin-top: 12px;
@@ -58,6 +61,14 @@ const Login = () => {
 
   return (
     <Wrapper>
+      <StatusBar
+        barStyle="dark-content"
+        networkActivityIndicatorVisible={true}
+        translucent={true}
+        backgroundColor={theme.colors.white}
+        animated={true}
+        showHideTransition="slide"
+      />
       <ContentWrapper>
         <HeaderText>Welcome back</HeaderText>
         <SubText>

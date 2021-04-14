@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "risevest-react-native-challenge.app"
+               BuildableName = "risevestreactnativechallenge.app"
                BlueprintName = "risevestreactnativechallenge"
-               ReferencedContainer = "container:RisevestReactNativeChallenge.xcodeproj">
+               ReferencedContainer = "container:risevestreactnativechallenge.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "risevest-react-native-challenge.app"
+            BuildableName = "risevestreactnativechallenge.app"
             BlueprintName = "risevestreactnativechallenge"
-            ReferencedContainer = "container:RisevestReactNativeChallenge.xcodeproj">
+            ReferencedContainer = "container:risevestreactnativechallenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "risevest-react-native-challenge.app"
+            BuildableName = "risevestreactnativechallenge.app"
             BlueprintName = "risevestreactnativechallenge"
-            ReferencedContainer = "container:RisevestReactNativeChallenge.xcodeproj">
+            ReferencedContainer = "container:risevestreactnativechallenge.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
