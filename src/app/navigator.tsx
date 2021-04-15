@@ -15,7 +15,7 @@ const MyTheme = {
   },
 };
 
-export function Navigator({token}: {token: boolean}) {
+export function Navigator({isAuthenticated}: {isAuthenticated: boolean}) {
   React.useLayoutEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -24,8 +24,8 @@ export function Navigator({token}: {token: boolean}) {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={MyTheme}>
-        {/* {!token ? <AuthApp /> : <MainApp />} */}
-        <MainApp />
+        {!isAuthenticated ? <AuthApp /> : <MainApp />}
+        {/* <MainApp /> */}
       </NavigationContainer>
     </SafeAreaProvider>
   );

@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
 import {ms} from 'react-native-size-matters';
+import {useSelector, shallowEqual} from 'react-redux';
 import {sizeScale} from '../../utils';
 
 // Icon
@@ -90,6 +91,10 @@ const ContainerBottomWrapperText = styled.Text`
 
 const WalletBalance = () => {
   const [isBalanceShown, setIsBalanceShown] = React.useState<boolean>(true);
+  const walletBalance: string = useSelector(
+    (state: any) => state.user.walletBalance,
+    shallowEqual,
+  );
 
   return (
     <Container>
@@ -108,7 +113,7 @@ const WalletBalance = () => {
               <Eye fill={theme.colors.defaultTeal} height={15} width={15} />
             </TouchableItem>
           </BalanceTitleAndIcon>
-          <Amount>{isBalanceShown ? '$100,000.75' : '**********'}</Amount>
+          <Amount>{isBalanceShown ? `$${walletBalance}` : '**********'}</Amount>
         </BalanceAndTitleWrapper>
         <WalletIconWrapper>
           <WalletIcon source={wallet} />
