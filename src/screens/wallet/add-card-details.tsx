@@ -1,8 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useSelector, shallowEqual, useDispatch} from 'react-redux';
+import {updateWalletBalance} from '../../redux/actions';
+import {Dispatch} from 'redux';
 import {theme} from '../../style/theme';
-import {sizeScale} from '../../utils';
+import {commaAppend, sizeScale} from '../../utils';
 import {vs} from 'react-native-size-matters';
 
 // Components
@@ -45,8 +48,40 @@ const ButtonWrapper = styled.View`
   margin-bottom: ${sizeScale(vs(39), 'px')};
 `;
 
+interface Route {
+  key: string;
+  name: string;
+  params: {
+    nairaValue: string;
+    dollarValue: string;
+  };
+}
+
 const AddPaymentMethod: React.FC = (): React.ReactElement => {
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
+  const route: Route = useRoute();
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const {nairaValue, dollarValue} = route.params;
+
+  const walletBalance: string = useSelector(
+    (state: any) => state.user.walletBalance,
+    shallowEqual,
+  );
+
+  const handleWalletUpdate = () => {
+    setLoading(true);
+
+    const amountToAddToWallet =
+      parseFloat(dollarValue) + parseFloat(walletBalance);
+
+    dispatch(updateWalletBalance(JSON.stringify(amountToAddToWallet)));
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate('Payment Successful', {amount: dollarValue});
+    });
+  };
 
   return (
     <Container>
@@ -65,12 +100,12 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
       </ContentWrapper>
       <ButtonWrapper>
         <ColoredButton
-          disabled={false}
-          isLoading={false}
+          disabled={loading}
+          isLoading={loading}
           onPress={() => {
-            navigation.navigate('Payment Successful');
+            handleWalletUpdate();
           }}>
-          Add ₦4,263
+          Add ₦{commaAppend(nairaValue)}
         </ColoredButton>
       </ButtonWrapper>
     </Container>

@@ -3,7 +3,7 @@ import {SetErrors, ValidationErrors} from '../types';
 const initialState: ValidationErrors = {
   errors: {
     validation: {
-      isError: true,
+      hasError: false,
       message: '',
     },
   },
@@ -19,7 +19,7 @@ export function formReducer(
         ...state,
         errors: {
           validation: {
-            isError: action.payload.isError,
+            hasError: action.payload.hasError,
             message: action.payload.message,
           },
         },

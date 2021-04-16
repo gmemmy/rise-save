@@ -3,6 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 import {vs, s, ms} from 'react-native-size-matters';
+import {useSelector, shallowEqual} from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
 import Shimmer from 'react-native-shimmer';
@@ -80,14 +81,13 @@ const ArrowWrapper = styled.View`
 
 const CurrencyValueWrapper = styled.View`
   width: 100%;
-  padding-vertical: ${sizeScale(vs(15), 'px')};
-  padding-horizontal: ${sizeScale(s(28), 'px')};
   align-items: center;
+  padding-vertical: ${sizeScale(vs(15), 'px')};
 `;
 
 const CurrencyValue = styled.View`
   flex-direction: row;
-  width: 100%;
+  width: 85%;
   justify-content: space-between;
 `;
 
@@ -138,14 +138,47 @@ const ButtonWrapper = styled.View`
 
 const InputWrapper = styled.View`
   height: 100%;
+  min-width: 16%;
 `;
 
 const AnimatedRateContainer = Animatable.createAnimatableComponent(
   RateContainer,
 );
 
-const FundWallet = () => {
+const FundWallet: React.FC = (): React.ReactElement => {
+  const [nairaValue, setNairaValue] = React.useState<string>('');
+  const [dollarValue, setDollarValue] = React.useState<string>('');
+  const [focusedInput, setFocusedInput] = React.useState<string>('');
+  const [buttonDisabled, setButtonDisabled] = React.useState<boolean>(true);
+
   const navigation = useNavigation();
+
+  const walletBalance: string = useSelector(
+    (state: any) => state.user.walletBalance,
+    shallowEqual,
+  );
+
+  const handleTextChange = amount => {
+    if (amount.length < 1) {
+      setButtonDisabled(true);
+      setDollarValue('');
+      setNairaValue('');
+    } else {
+      const formattedAmount = parseFloat(amount);
+      let newValue;
+      setButtonDisabled(false);
+      if (focusedInput === 'naira') {
+        newValue = formattedAmount / 420;
+        setDollarValue(newValue.toFixed(2));
+        setNairaValue(amount);
+      }
+      if (focusedInput === 'dollar') {
+        newValue = formattedAmount * 420;
+        setNairaValue(newValue.toFixed(2));
+        setDollarValue(amount);
+      }
+    }
+  };
 
   return (
     <Container>
@@ -173,14 +206,18 @@ const FundWallet = () => {
             <PaymentFormatContainerHeader>
               Rise Wallet
             </PaymentFormatContainerHeader>
-            <WalletBalance>$20.34</WalletBalance>
+            <WalletBalance>{walletBalance}</WalletBalance>
           </HalfPaymentFormatContainer>
         </PaymentFormatContainer>
         <CurrencyValueWrapper>
           <CurrencyValue>
             <CurrencySymbol>₦</CurrencySymbol>
             <InputWrapper>
-              <NumberInput />
+              <NumberInput
+                onFocus={() => setFocusedInput('naira')}
+                handleTextChange={handleTextChange}
+                value={nairaValue}
+              />
             </InputWrapper>
           </CurrencyValue>
           <TouchableItem>
@@ -194,16 +231,23 @@ const FundWallet = () => {
           <CurrencyValue>
             <CurrencySymbol>$</CurrencySymbol>
             <InputWrapper>
-              <NumberInput />
+              <NumberInput
+                onFocus={() => setFocusedInput('dollar')}
+                handleTextChange={handleTextChange}
+                value={dollarValue}
+              />
             </InputWrapper>
           </CurrencyValue>
         </CurrencyValueWrapper>
         <ButtonWrapper>
           <ColoredButton
-            disabled={false}
+            disabled={buttonDisabled}
             isLoading={false}
             onPress={() => {
-              navigation.navigate('Confirm Amount');
+              navigation.navigate('Confirm Amount', {
+                nairaValue,
+                dollarValue,
+              });
             }}>
             Add Money
           </ColoredButton>

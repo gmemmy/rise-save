@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 import {vs, s, ms} from 'react-native-size-matters';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {theme} from '../../style/theme';
 import {sizeScale} from '../../utils';
 
@@ -77,8 +77,20 @@ const AngleArrowIcon = styled(FastImage)`
   margin-left: auto;
 `;
 
+interface Route {
+  key: string;
+  name: string;
+  params: {
+    nairaValue: string;
+    dollarValue: string;
+  };
+}
+
 const ChooseCard: React.FC = (): React.ReactElement => {
   const navigation = useNavigation();
+  const route: Route = useRoute();
+
+  const {nairaValue, dollarValue} = route.params;
 
   return (
     <Container>
@@ -93,7 +105,10 @@ const ChooseCard: React.FC = (): React.ReactElement => {
         rippleFades={true}
         rippleContainerBorderRadius={6}
         onPress={() => {
-          navigation.navigate('Add Card Details');
+          navigation.navigate('Add Card Details', {
+            nairaValue,
+            dollarValue,
+          });
         }}>
         <ButtonContainer>
           <CardIconWrapper>

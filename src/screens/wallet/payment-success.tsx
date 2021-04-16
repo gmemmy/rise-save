@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import * as Animatable from 'react-native-animatable';
 import MakeItRain from 'react-native-make-it-rain';
@@ -59,6 +59,8 @@ const AnimatedCheckIconWrapper = Animatable.createAnimatableComponent(
 
 const PaymentSuccessful: React.FC = (): React.ReactElement => {
   const navigation = useNavigation();
+  const route: any = useRoute();
+
   return (
     <Container>
       <MakeItRain
@@ -75,7 +77,8 @@ const PaymentSuccessful: React.FC = (): React.ReactElement => {
           />
         </AnimatedCheckIconWrapper>
         <SuccessMessage>
-          You've successfully funded {'\n'} your wallet with $10
+          You've successfully funded {'\n'} your wallet with $
+          {route.params.amount}
         </SuccessMessage>
       </ContentWrapper>
       <ButtonWrapper>

@@ -17,3 +17,7 @@ const Scaler = {
 
 export const sizeScale = (size: number, scale: keyof typeof Scaler) =>
   `${size}${scale}`;
+
+export const commaAppend = (value: string) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

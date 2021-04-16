@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
 import {ms} from 'react-native-size-matters';
 import {useSelector, shallowEqual} from 'react-redux';
-import {sizeScale} from '../../utils';
+import {commaAppend, sizeScale} from '../../utils';
 
 // Icon
 import Eye from '../icons/eye';
@@ -89,7 +89,7 @@ const ContainerBottomWrapperText = styled.Text`
   font-size: ${sizeScale(ms(11, 0.2), 'px')};
 `;
 
-const WalletBalance = () => {
+const WalletBalance: React.FC = (): React.ReactElement => {
   const [isBalanceShown, setIsBalanceShown] = React.useState<boolean>(true);
   const walletBalance: string = useSelector(
     (state: any) => state.user.walletBalance,
@@ -113,7 +113,9 @@ const WalletBalance = () => {
               <Eye fill={theme.colors.defaultTeal} height={15} width={15} />
             </TouchableItem>
           </BalanceTitleAndIcon>
-          <Amount>{isBalanceShown ? `$${walletBalance}` : '**********'}</Amount>
+          <Amount>
+            {isBalanceShown ? `$${commaAppend(walletBalance)}` : '**********'}
+          </Amount>
         </BalanceAndTitleWrapper>
         <WalletIconWrapper>
           <WalletIcon source={wallet} />

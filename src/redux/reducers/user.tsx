@@ -22,7 +22,7 @@ export function userReducer(
       return {
         ...state,
         email: action.payload.email,
-        isAuthenticated: true,
+        isAuthenticated: action.payload.isAuthenticated,
       };
     }
     default:

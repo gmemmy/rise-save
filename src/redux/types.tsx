@@ -9,7 +9,7 @@ export interface ValidationErrors {
   errors: {
     validation: {
       message: string;
-      isError: boolean;
+      hasError: boolean;
     };
   };
 }
@@ -36,7 +36,7 @@ export interface SetErrors {
   type: typeof SET_FORM_ERROR;
   payload: {
     message: string;
-    isError: boolean;
+    hasError: boolean;
   };
 }
 

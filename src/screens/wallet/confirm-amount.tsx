@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {ms, vs, s} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {theme} from '../../style/theme';
-import {sizeScale} from '../../utils';
+import {sizeScale, commaAppend} from '../../utils';
 
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
@@ -74,8 +74,22 @@ const ButtonWrapper = styled.View`
   margin-bottom: ${sizeScale(vs(39), 'px')};
 `;
 
+interface Route {
+  key: string;
+  name: string;
+  params: {
+    nairaValue: string;
+    dollarValue: string;
+  };
+}
+
 const ConfirmAmount = () => {
   const navigation = useNavigation();
+  const route: Route = useRoute();
+  const nairaValue = parseFloat(route.params.nairaValue).toFixed(2);
+  const dollarValue = parseFloat(route.params.dollarValue).toFixed(2);
+
+  const processingFee = (1.5 / 100) * parseFloat(nairaValue);
 
   return (
     <Container>
@@ -83,22 +97,24 @@ const ConfirmAmount = () => {
         <AmountToDeposit>
           <CurrencySymbol>₦</CurrencySymbol>
           {''}
-          4,263.00
+          {commaAppend(nairaValue)}
         </AmountToDeposit>
         <AllDetailsWrapper>
           <DetailsContainer>
             <DetailsTitle>Amount added to wallet</DetailsTitle>
-            <DetailsValue>₦4,200.00</DetailsValue>
+            <DetailsValue>₦{commaAppend(nairaValue)}</DetailsValue>
           </DetailsContainer>
           <HorizontalRuler />
           <DetailsContainer>
             <DetailsTitle>Processing fee (1.5%)</DetailsTitle>
-            <DetailsValue>₦63.00</DetailsValue>
+            <DetailsValue>
+              ₦{commaAppend(processingFee.toFixed(2))}
+            </DetailsValue>
           </DetailsContainer>
           <HorizontalRuler />
           <DetailsContainer>
             <DetailsTitle>Amount in USD</DetailsTitle>
-            <DetailsValue>$10.00</DetailsValue>
+            <DetailsValue>${commaAppend(dollarValue)}</DetailsValue>
           </DetailsContainer>
           <HorizontalRuler />
         </AllDetailsWrapper>
@@ -108,9 +124,9 @@ const ConfirmAmount = () => {
           disabled={false}
           isLoading={false}
           onPress={() => {
-            navigation.navigate('Choose Naira Card');
+            navigation.navigate('Choose Naira Card', {nairaValue, dollarValue});
           }}>
-          Add ₦4,263
+          Add ₦{commaAppend(nairaValue)}
         </ColoredButton>
       </ButtonWrapper>
     </Container>
