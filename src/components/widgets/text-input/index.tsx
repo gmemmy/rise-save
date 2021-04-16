@@ -7,6 +7,10 @@ import {theme} from '../../../style/theme';
 import {ms} from 'react-native-size-matters';
 import cardsy from 'cardsy';
 import {sizeScale} from '../../../utils';
+import {Dispatch} from 'redux';
+import {useSelector, shallowEqual, useDispatch} from 'react-redux';
+import {setValidationError} from '../../../redux/actions';
+import {Field, reduxForm} from 'redux-form';
 
 // components
 import TouchableItem from '../buttons/touchable-item';
@@ -55,31 +59,61 @@ const ValidationErrorMessage = styled.Text`
   font-size: ${sizeScale(ms(12, 0.2), 'px')};
 `;
 
+const renderInput = ({input: {onChange, ...input}, ...rest}) => {
+  return <Input onChangeText={onChange} {...input} {...rest} />;
+};
+
+const validate = values => {
+  const errors = {};
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+  if (!values.age) {
+    errors.age = 'Required';
+  } else if (isNaN(Number(values.age))) {
+    errors.age = 'Must be a number';
+  } else if (Number(values.age) < 18) {
+    errors.age = 'Sorry, you must be at least 18 years old';
+  }
+  return errors;
+};
+
 const InputField = ({placeholder, type}: FormField) => {
   const [hide, setHide] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>('');
-  const [isValidationError, setIsValidationError] = React.useState<boolean>(
-    false,
-  );
-  const [validationError, setValidationError] = React.useState<string>('');
+  // const [errorMessage, setErrorMessage] = React.useState<string>('');
+  // const [hasError, sethasError] = React.useState<boolean>(false);
+
+  // const dispatch: Dispatch<any> = useDispatch();
+
+  // const validationError: any = useSelector(
+  //   (state: any) => state.form.errors.validation,
+  //   shallowEqual,
+  // );
+
+  // React.useEffect(() => {
+  //   dispatch(setValidationError(errorMessage, hasError));
+  // }, [errorMessage, hasError]);
 
   const handleValidation = (field: string) => {
     if (!validator.isEmpty(value)) {
       if (field === 'email') {
         if (!validator.isEmail(value)) {
-          setIsValidationError(true);
-          setValidationError('Please input a valid email address.');
+          setErrorMessage('Please input a valid email address.');
+          sethasError(true);
         } else if (validator.isEmail(value)) {
-          setIsValidationError(false);
-          setValidationError('');
+          setErrorMessage('');
+          sethasError(false);
         }
       } else {
-        setIsValidationError(false);
-        setValidationError('');
+        setErrorMessage('');
+        sethasError(false);
       }
     } else {
-      setIsValidationError(true);
-      setValidationError('This field is required.');
+      setErrorMessage('This field is required.');
+      sethasError(true);
     }
   };
 
@@ -103,8 +137,8 @@ const InputField = ({placeholder, type}: FormField) => {
   return (
     <Container>
       <FormWrapper>
-        <Background borderColor={isValidationError ? 'red' : '#0898a0'} />
-        <Input
+        <Background borderColor={'#0898a0'} />
+        {/* <Input
           placeholder={placeholder}
           placeholderTextColor={theme.colors.dark}
           secureTextEntry={type === 'password' && hide}
@@ -114,6 +148,22 @@ const InputField = ({placeholder, type}: FormField) => {
           }}
           value={value}
           onBlur={() => handleValidation(type)}
+        /> */}
+        <Field
+          name={type}
+          placeholderTextColor={theme.colors.dark}
+          secureTextEntry={type === 'password' && hide}
+          onChange={text => {
+            handleOnChangeText(text);
+          }}
+          value={value}
+          // onBlur={() => handleValidation(type)}
+          props={{
+            placeholder,
+            placeholderTextColor: theme.colors.dark,
+            secureTextEntry: type === 'password' && hide,
+          }}
+          component={renderInput}
         />
         {type === 'password' && (
           <TouchableItem
@@ -126,11 +176,16 @@ const InputField = ({placeholder, type}: FormField) => {
           </TouchableItem>
         )}
       </FormWrapper>
-      {isValidationError && (
-        <ValidationErrorMessage>{validationError}</ValidationErrorMessage>
-      )}
+      {/* {validationError.hasError && (
+        <ValidationErrorMessage>
+          {validationError.message}
+        </ValidationErrorMessage>
+      )} */}
     </Container>
   );
 };
 
-export default InputField;
+export default reduxForm({
+  form: 'fieldLevelValidation',
+  validate,
+})(InputField);

@@ -44,6 +44,7 @@ const Wallet = () => {
         <ButtonsWrapper>
           <ColoredButton
             color={theme.colors.offTeal}
+            onPress={() => navigation.navigate('Plans', {screen: 'Plans'})}
             style={{
               width: 180,
               height: 55,

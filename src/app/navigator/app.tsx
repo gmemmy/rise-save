@@ -10,6 +10,7 @@ import {ms} from 'react-native-size-matters';
 import {theme} from '../../style/theme';
 import TouchableRipple from 'react-native-material-ripple';
 import HomeStack from './home-stack';
+import PlansStack from './plans-stack';
 
 // Icons
 import HomeIcon from '../../components/icons/home';
@@ -98,7 +99,7 @@ const MainTabs = () => {
         />
         <Tab.Screen
           name="Plans"
-          component={HomeStack}
+          component={PlansStack}
           options={{
             tabBarIcon: ({color}) => (
               <PlansIcon fill={color} width={20} height={20} />

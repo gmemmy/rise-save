@@ -2,7 +2,9 @@ import {
   SET_WALLET_BALANCE,
   SetWalletBalance,
   SetUser,
+  SetErrors,
   SET_USER_INFO,
+  SET_FORM_ERROR,
 } from '../types';
 
 export function updateUserInfo(isAuthenticated: boolean, email: string) {
@@ -10,7 +12,15 @@ export function updateUserInfo(isAuthenticated: boolean, email: string) {
     type: SET_USER_INFO,
     payload: {isAuthenticated, email},
   };
-  return simulateHttpRequest(action);
+  return (dispatch: any) => dispatch(action);
+}
+
+export function setValidationError(message: string, hasError: boolean) {
+  const action: SetErrors = {
+    type: SET_FORM_ERROR,
+    payload: {message, hasError},
+  };
+  return (dispatch: any) => dispatch(action);
 }
 
 export function updateWalletBalance(newBalance: string) {
@@ -18,13 +28,5 @@ export function updateWalletBalance(newBalance: string) {
     type: SET_WALLET_BALANCE,
     payload: newBalance,
   };
-  return simulateHttpRequest(action);
-}
-
-export function simulateHttpRequest(action: any) {
-  return (dispatch: any) => {
-    setTimeout(() => {
-      dispatch(action);
-    }, 500);
-  };
+  return (dispatch: any) => dispatch(action);
 }
