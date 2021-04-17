@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {useSelector, shallowEqual, useDispatch} from 'react-redux';
-import {updateWalletBalance} from '../../redux/actions';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
+import {updateWalletBalance, updatePlanBalance} from '../../redux/actions';
 import {Dispatch} from 'redux';
 import {theme} from '../../style/theme';
 import {commaAppend, sizeScale} from '../../utils';
@@ -11,6 +11,7 @@ import {vs} from 'react-native-size-matters';
 // Components
 import InputField from '../../components/widgets/text-input';
 import ColoredButton from '../../components/widgets/buttons/colored-button';
+import {FundingRoute} from '../../interface';
 
 const Container = styled.View`
   flex: 1;
@@ -48,39 +49,43 @@ const ButtonWrapper = styled.View`
   margin-bottom: ${sizeScale(vs(39), 'px')};
 `;
 
-interface Route {
-  key: string;
-  name: string;
-  params: {
-    nairaValue: string;
-    dollarValue: string;
-  };
-}
-
 const AddPaymentMethod: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
-  const route: Route = useRoute();
+  const route: FundingRoute = useRoute();
   const dispatch: Dispatch<any> = useDispatch();
 
-  const {nairaValue, dollarValue} = route.params;
+  const {nairaValue, dollarValue, balanceToFund, type} = route.params;
 
   const walletBalance: string = useSelector(
     (state: any) => state.user.walletBalance,
     shallowEqual,
   );
 
-  const handleWalletUpdate = () => {
+  const handleAddFunds = () => {
     setLoading(true);
+    let amountToFund;
 
-    const amountToAddToWallet =
-      parseFloat(dollarValue) + parseFloat(walletBalance);
+    if (type === 'wallet') {
+      // set the amount to add to the wallet to be the old wallet amount plus the specifed
+      // amount to add
+      amountToFund = parseFloat(dollarValue) + parseFloat(walletBalance);
+      dispatch(updateWalletBalance(JSON.stringify(amountToFund)));
+    }
+    if (type === 'plan') {
+      // deduct amount to add to plan from current wallet balance
+      const newWalletBalance =
+        parseFloat(walletBalance) - parseFloat(dollarValue);
 
-    dispatch(updateWalletBalance(JSON.stringify(amountToAddToWallet)));
+      // update the wallet balance with the new amount bar the plan deduction
+      // update the plan balance to have the specified amount
+      dispatch(updateWalletBalance(JSON.stringify(newWalletBalance)));
+      dispatch(updatePlanBalance(JSON.stringify(dollarValue), '01'));
+    }
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('Payment Successful', {amount: dollarValue});
-    });
+    }, 1000);
   };
 
   return (
@@ -103,7 +108,7 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
           disabled={loading}
           isLoading={loading}
           onPress={() => {
-            handleWalletUpdate();
+            handleAddFunds();
           }}>
           Add ₦{commaAppend(nairaValue)}
         </ColoredButton>

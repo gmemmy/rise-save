@@ -83,6 +83,8 @@ interface Route {
   params: {
     nairaValue: string;
     dollarValue: string;
+    balanceToFund: string;
+    type: string;
   };
 }
 
@@ -90,7 +92,7 @@ const ChooseCard: React.FC = (): React.ReactElement => {
   const navigation = useNavigation();
   const route: Route = useRoute();
 
-  const {nairaValue, dollarValue} = route.params;
+  const {nairaValue, dollarValue, balanceToFund, type} = route.params;
 
   return (
     <Container>
@@ -108,6 +110,8 @@ const ChooseCard: React.FC = (): React.ReactElement => {
           navigation.navigate('Add Card Details', {
             nairaValue,
             dollarValue,
+            balanceToFund,
+            type,
           });
         }}>
         <ButtonContainer>

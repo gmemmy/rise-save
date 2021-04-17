@@ -5,6 +5,8 @@ import {
   SetErrors,
   SET_USER_INFO,
   SET_FORM_ERROR,
+  SetPLanBalance,
+  SET_PLAN_BALANCE,
 } from '../types';
 
 export function updateUserInfo(isAuthenticated: boolean, email: string) {
@@ -27,6 +29,14 @@ export function updateWalletBalance(newBalance: string) {
   const action: SetWalletBalance = {
     type: SET_WALLET_BALANCE,
     payload: newBalance,
+  };
+  return (dispatch: any) => dispatch(action);
+}
+
+export function updatePlanBalance(newBalance: string, id: string) {
+  const action: SetPLanBalance = {
+    type: SET_PLAN_BALANCE,
+    payload: {itemId: id, amount: newBalance},
   };
   return (dispatch: any) => dispatch(action);
 }

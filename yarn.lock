@@ -995,6 +995,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@prince8verma/react-native-snackbar@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@prince8verma/react-native-snackbar/-/react-native-snackbar-1.2.2.tgz#d3f0278b89b129c74abe2989449b7267468aef05"
+  integrity sha1-0/Ani4mxKcdKvimJRJtyZ0aK7wU=
+  dependencies:
+    react-native-simple-events "^1.0.1"
+
 "@react-native-community/cli-debugger-ui@^5.0.1-alpha.1":
   version "5.0.1-alpha.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-5.0.1-alpha.1.tgz#09a856ccd2954cf16eea59b14dd26ae66720e4e6"
@@ -6215,10 +6222,20 @@ react-native-shimmer@^0.6.0:
   dependencies:
     prop-types "^15.6.0"
 
+react-native-simple-events@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-simple-events/-/react-native-simple-events-1.0.1.tgz#7e636ccd1b7e03029cb78dc9d59d0009f73a3bd6"
+  integrity sha1-fmNszRt+AwKct43J1Z0ACfc6O9Y=
+
 react-native-size-matters@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz#01bfd0d59454318f4e0b13fe9c1eb0523d70f2e0"
   integrity sha512-8/C0htHrFWeUm9N8JegmadovUfgTWkGBkDPZ1N3YkXtDWb+98Ya2gThiKcu445r8c7YhcrBfnHz/mYsXIusaOQ==
+
+react-native-snackbar@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-snackbar/-/react-native-snackbar-2.4.0.tgz#dd9687f5228e379ecd57678a921e546331681bcf"
+  integrity sha512-xEDIDxw0ubBHrsvzaMfrZlFoy+ai1WEJZQwyAsG55fqYxUfQM20h+V4v25u+/H/YKY7ZCRMdCZ8zB5JOnbvCQw==
 
 react-native-splash-screen@^3.2.0:
   version "3.2.0"

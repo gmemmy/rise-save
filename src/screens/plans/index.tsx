@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
+import {useSelector, shallowEqual} from 'react-redux';
 import {theme} from '../../style/theme';
 import Plan from '../../components/template/plan';
 
@@ -16,36 +17,20 @@ const ContentWrapper = styled.FlatList`
   margin-top: 25px;
 `;
 
-const data: any = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-    amount: '$5000.45',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-    amount: '$5000.45',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-    amount: '$5000.45',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-    amount: '$5000.45',
-  },
-];
-
-const renderItem = () => <Plan />;
+const renderItem = ({item, index}: any) => {
+  return <Plan key={index} plan={item} />;
+};
 
 const Plans = () => {
+  const allPlans: any = useSelector(
+    (state: any) => state.plan.plans,
+    shallowEqual,
+  );
+
   return (
     <Container>
       <ContentWrapper
-        data={data}
+        data={allPlans}
         renderItem={renderItem}
         keyExtractor={(item: any) => item.id}
         numColumns={2}

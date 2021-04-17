@@ -7,6 +7,7 @@ import {sizeScale, commaAppend} from '../../utils';
 
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
+import {FundingRoute} from '../../interface';
 
 const Container = styled.View`
   flex: 1;
@@ -74,18 +75,10 @@ const ButtonWrapper = styled.View`
   margin-bottom: ${sizeScale(vs(39), 'px')};
 `;
 
-interface Route {
-  key: string;
-  name: string;
-  params: {
-    nairaValue: string;
-    dollarValue: string;
-  };
-}
-
 const ConfirmAmount = () => {
   const navigation = useNavigation();
-  const route: Route = useRoute();
+  const route: FundingRoute = useRoute();
+  const {balanceToFund, type} = route.params;
   const nairaValue = parseFloat(route.params.nairaValue).toFixed(2);
   const dollarValue = parseFloat(route.params.dollarValue).toFixed(2);
 
@@ -124,7 +117,12 @@ const ConfirmAmount = () => {
           disabled={false}
           isLoading={false}
           onPress={() => {
-            navigation.navigate('Choose Naira Card', {nairaValue, dollarValue});
+            navigation.navigate('Choose Naira Card', {
+              nairaValue,
+              dollarValue,
+              balanceToFund,
+              type,
+            });
           }}>
           Add ₦{commaAppend(nairaValue)}
         </ColoredButton>

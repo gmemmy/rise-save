@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@prince8verma/react-native-snackbar": "^1.2.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.9",
     "@react-navigation/native": "^5.9.4",
@@ -45,6 +46,7 @@
     "react-native-screens": "^3.1.0",
     "react-native-shimmer": "^0.6.0",
     "react-native-size-matters": "^0.4.0",
+    "react-native-snackbar": "^2.4.0",
     "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^12.1.1-0",
     "react-native-svg-transformer": "^0.14.3",
