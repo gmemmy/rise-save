@@ -1,16 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import styled from 'styled-components/native';
+import Input from 'react-native-input-style';
 import validator from 'validator';
 import {FormField} from '../../../interface';
 import {theme} from '../../../style/theme';
 import {ms} from 'react-native-size-matters';
 import cardsy from 'cardsy';
 import {sizeScale} from '../../../utils';
-import {Dispatch} from 'redux';
-import {useSelector, shallowEqual, useDispatch} from 'react-redux';
-import {setValidationError} from '../../../redux/actions';
-import {Field, reduxForm} from 'redux-form';
+// import {Dispatch} from 'redux';
+// import {useSelector, shallowEqual, useDispatch} from 'react-redux';
+// import {setValidationError} from '../../../redux/actions';
 
 // components
 import TouchableItem from '../buttons/touchable-item';
@@ -35,13 +35,12 @@ const Background = styled.View<{borderColor?: string}>`
   flex: 1;
   opacity: 0.2;
   width: 100%;
-  height: 55px;
   border-radius: 5px;
   background-color: ${theme.colors.offTeal};
   border: 1px solid ${(props: any) => props.borderColor};
 `;
 
-const Input = styled.TextInput`
+const CustomInput = styled(Input)`
   width: 90%;
   color: ${theme.colors.dark};
   font-family: Gelion-SemiBold;
@@ -63,59 +62,28 @@ const renderInput = ({input: {onChange, ...input}, ...rest}) => {
   return <Input onChangeText={onChange} {...input} {...rest} />;
 };
 
-const validate = values => {
-  const errors = {};
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  if (!values.age) {
-    errors.age = 'Required';
-  } else if (isNaN(Number(values.age))) {
-    errors.age = 'Must be a number';
-  } else if (Number(values.age) < 18) {
-    errors.age = 'Sorry, you must be at least 18 years old';
-  }
-  return errors;
-};
+// const validate = values => {
+//   const errors = {};
+//   if (!values.email) {
+//     errors.email = 'Required';
+//   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//     errors.email = 'Invalid email address';
+//   }
+//   if (!values.age) {
+//     errors.age = 'Required';
+//   } else if (isNaN(Number(values.age))) {
+//     errors.age = 'Must be a number';
+//   } else if (Number(values.age) < 18) {
+//     errors.age = 'Sorry, you must be at least 18 years old';
+//   }
+//   return errors;
+// };
 
 const InputField = ({placeholder, type}: FormField) => {
   const [hide, setHide] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>('');
   // const [errorMessage, setErrorMessage] = React.useState<string>('');
   // const [hasError, sethasError] = React.useState<boolean>(false);
-
-  // const dispatch: Dispatch<any> = useDispatch();
-
-  // const validationError: any = useSelector(
-  //   (state: any) => state.form.errors.validation,
-  //   shallowEqual,
-  // );
-
-  // React.useEffect(() => {
-  //   dispatch(setValidationError(errorMessage, hasError));
-  // }, [errorMessage, hasError]);
-
-  const handleValidation = (field: string) => {
-    if (!validator.isEmpty(value)) {
-      if (field === 'email') {
-        if (!validator.isEmail(value)) {
-          setErrorMessage('Please input a valid email address.');
-          sethasError(true);
-        } else if (validator.isEmail(value)) {
-          setErrorMessage('');
-          sethasError(false);
-        }
-      } else {
-        setErrorMessage('');
-        sethasError(false);
-      }
-    } else {
-      setErrorMessage('This field is required.');
-      sethasError(true);
-    }
-  };
 
   const handleOnChangeText = (text: string) => {
     switch (type) {
@@ -137,19 +105,65 @@ const InputField = ({placeholder, type}: FormField) => {
   return (
     <Container>
       <FormWrapper>
-        <Background borderColor={'#0898a0'} />
-        {/* <Input
-          placeholder={placeholder}
-          placeholderTextColor={theme.colors.dark}
-          secureTextEntry={type === 'password' && hide}
-          onChangeText={text => {
-            handleValidation(type);
-            handleOnChangeText(text);
-          }}
-          value={value}
-          onBlur={() => handleValidation(type)}
-        /> */}
-        <Field
+        {type === 'email' && (
+          <Input
+            borderColor="#0898a0"
+            email={true}
+            required
+            outlined
+            label="Email Address"
+            errorText="Please input a valid email address."
+            keyboardType="default"
+            placeholderTextColor={theme.colors.dark}
+            onInputChange={text => {
+              handleOnChangeText(text);
+            }}
+            value={value}
+            inputStyle={{
+              width: '100%',
+              color: theme.colors.dark,
+              fontFamily: 'Gelion-SemiBold',
+              fontSize: 17,
+              // backgroundColor: theme.colors.offTeal,
+            }}
+            height={55}
+            labelStyle={{
+              color: theme.colors.dark,
+              fontFamily: 'Gelion-SemiBold',
+            }}
+            submit={(e) => console.log(e)}
+          />
+        )}
+        {type === 'password' && (
+          <Input
+            borderColor="#0898a0"
+            required
+            secureTextEntry={hide}
+            outlined
+            label="Password"
+            errorText="Please input a valid password."
+            placeholderTextColor={theme.colors.dark}
+            onInputChange={text => {
+              handleOnChangeText(text);
+            }}
+            value={value}
+            inputStyle={{
+              width: '100%',
+              color: theme.colors.dark,
+              fontFamily: 'Gelion-SemiBold',
+              fontSize: 17,
+              position: 'relative',
+              // backgroundColor: theme.colors.offTeal,
+            }}
+            height={55}
+            labelStyle={{
+              color: theme.colors.dark,
+              fontFamily: 'Gelion-SemiBold',
+            }}
+          />
+        )}
+        {/* <Background borderColor={'#0898a0'} /> */}
+        {/* <Field
           name={type}
           placeholderTextColor={theme.colors.dark}
           secureTextEntry={type === 'password' && hide}
@@ -164,28 +178,21 @@ const InputField = ({placeholder, type}: FormField) => {
             secureTextEntry: type === 'password' && hide,
           }}
           component={renderInput}
-        />
+        /> */}
         {type === 'password' && (
           <TouchableItem
             onPress={() => setHide(!hide)}
             style={{
               position: 'absolute',
-              marginLeft: '90%',
+              right: 25,
+              zIndex: 99,
             }}>
             <EyeIcon fill={theme.colors.defaultTeal} width={23} height={23} />
           </TouchableItem>
         )}
       </FormWrapper>
-      {/* {validationError.hasError && (
-        <ValidationErrorMessage>
-          {validationError.message}
-        </ValidationErrorMessage>
-      )} */}
     </Container>
   );
 };
 
-export default reduxForm({
-  form: 'fieldLevelValidation',
-  validate,
-})(InputField);
+export default InputField;

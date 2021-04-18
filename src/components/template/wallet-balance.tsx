@@ -41,7 +41,7 @@ const BalanceTitleAndIcon = styled.View`
 `;
 
 const BalanceTitle = styled.Text`
-  font-size: ${sizeScale(ms(11, 0.2), 'px')};
+  font-size: ${sizeScale(ms(12, 0.2), 'px')};
   line-height: 13px;
   font-family: Gelion-Regular;
   color: ${theme.colors.grey};
@@ -104,13 +104,13 @@ const WalletBalance: React.FC = (): React.ReactElement => {
             <BalanceTitle>Wallet Balance</BalanceTitle>
             <TouchableItem
               style={{
-                width: 20,
-                height: 20,
-                alignItems: 'center',
+                width: 30,
+                height: 30,
+                alignItems: 'flex-start',
                 justifyContent: 'center',
               }}
               onPress={() => setIsBalanceShown(!isBalanceShown)}>
-              <Eye fill={theme.colors.defaultTeal} height={15} width={15} />
+              <Eye fill={theme.colors.defaultTeal} height={16} width={16} />
             </TouchableItem>
           </BalanceTitleAndIcon>
           <Amount>

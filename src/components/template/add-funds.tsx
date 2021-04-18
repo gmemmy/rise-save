@@ -4,12 +4,12 @@ import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 import {vs, s, ms} from 'react-native-size-matters';
 import * as Animatable from 'react-native-animatable';
+import Toast from 'react-native-simple-toast';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, shallowEqual} from 'react-redux';
 import Shimmer from 'react-native-shimmer';
 import {theme} from '../../style/theme';
 import {sizeScale} from '../../utils/index';
-import Snackbar from 'react-native-snackbar';
 
 // Icon
 const arrowRight = require('../../../assets/images/arrow-right.png');
@@ -193,13 +193,11 @@ const AddFunds = ({
           amount.length >= 1 &&
           parseFloat(amount) > parseFloat(walletBalance)
         ) {
-          Snackbar.show({
-            text:
-              'Your wallet balance is too low to fund this plan. Please fund your wallet.',
-            duration: Snackbar.LENGTH_LONG,
-            backgroundColor: 'red',
-            fontFamily: 'Gelion-Regular',
-          });
+          Toast.showWithGravity(
+            'Your wallet balance is too low to fund this plan. Please fund your wallet.',
+            500,
+            Toast.TOP,
+          );
           setButtonDisabled(true);
         } else {
           setButtonDisabled(false);
