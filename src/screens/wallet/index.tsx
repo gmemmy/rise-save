@@ -54,8 +54,12 @@ const ListHeaderRight = styled.Text`
   color: ${theme.colors.defaultTeal};
 `;
 
+const ListContainerBottomPadding = styled.View`
+  height: 20px;
+`;
+
 const renderTransaction = ({item}) => {
-  return <TransactionSummary transaction={item} />;
+  return <TransactionSummary key={item.id} transaction={item} />;
 };
 
 const ListHeader = () => {
@@ -86,7 +90,7 @@ const Wallet = () => {
         <ButtonsWrapper>
           <ColoredButton
             color={theme.colors.offTeal}
-            onPress={() => navigation.navigate('Plans', {screen: 'Plans'})}
+            onPress={() => navigation.navigate('Plans')}
             style={{
               width: 180,
               height: 55,
@@ -109,20 +113,45 @@ const Wallet = () => {
               text: 'hello',
             },
             {
-              id: '01',
+              id: '02',
               text: 'hello',
             },
             {
-              id: '01',
+              id: '03',
               text: 'hello',
             },
             {
-              id: '01',
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
+              text: 'hello',
+            },
+            {
+              id: '04',
               text: 'hello',
             },
           ]}
           renderItem={renderTransaction}
           ListHeaderComponent={<ListHeader />}
+          ListFooterComponent={<ListContainerBottomPadding />}
         />
       </WalletBalanceWrapper>
     </Container>

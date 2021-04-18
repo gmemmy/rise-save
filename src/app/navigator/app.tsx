@@ -104,6 +104,7 @@ const MainTabs = () => {
             tabBarIcon: ({color}) => (
               <PlansIcon fill={color} width={20} height={20} />
             ),
+            unmountOnBlur: true,
           }}
         />
       </Tab.Navigator>

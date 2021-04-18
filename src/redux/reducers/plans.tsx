@@ -1,31 +1,37 @@
 import {PlanInterface, PlanInfoActionTypes} from '../types';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState: PlanInterface = {
   plans: [
     {
-      id: '01',
+      id: '1',
       title: 'Santorini Funds',
+      balance: '0.00',
+    },
+    {
+      id: '2',
+      title: 'School Fees',
+      balance: '0.00',
+    },
+    {
+      id: '3',
+      title: 'Flexing',
+      balance: '0.00',
+    },
+    {
+      id: '4',
+      title: 'I dunno',
       balance: '0.00',
     },
   ],
 };
 
-export function planReducer(
-  state: PlanInterface = initialState,
-  action: PlanInfoActionTypes,
-): PlanInterface {
-  switch (action.type) {
-    case 'SET_PLAN_BALANCE': {
-      return {
-        ...state,
-        plans: state.plans.map(plan => {
-          plan.id === action.payload.itemId
-            ? {...plan, balance: action.payload.amount}
-            : plan;
-        }),
-      };
-    }
-    default:
-      return state;
-  }
-}
+export const planReducer = createReducer(initialState, {
+  SET_PLAN_BALANCE: (state: PlanInterface, action: PlanInfoActionTypes) => {
+    const itemIndex = Number(action.payload.itemId) - 1;
+    const prevBalance = state.plans[itemIndex].balance;
+    const sumValues =
+      parseFloat(action.payload.amount) + parseFloat(prevBalance);
+    state.plans[itemIndex].balance = JSON.stringify(sumValues);
+  },
+});

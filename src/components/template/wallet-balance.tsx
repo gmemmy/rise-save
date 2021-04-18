@@ -96,6 +96,8 @@ const WalletBalance: React.FC = (): React.ReactElement => {
     shallowEqual,
   );
 
+  const formattedWalletBalance = parseFloat(walletBalance).toFixed(2);
+
   return (
     <Container>
       <BalanceWrapper>
@@ -114,7 +116,9 @@ const WalletBalance: React.FC = (): React.ReactElement => {
             </TouchableItem>
           </BalanceTitleAndIcon>
           <Amount>
-            {isBalanceShown ? `$${commaAppend(walletBalance)}` : '**********'}
+            {isBalanceShown
+              ? `$${commaAppend(formattedWalletBalance)}`
+              : '**********'}
           </Amount>
         </BalanceAndTitleWrapper>
         <WalletIconWrapper>

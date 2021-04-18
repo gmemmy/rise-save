@@ -34,5 +34,6 @@ export interface FundingRoute {
     type: string;
     nairaValue: string;
     dollarValue: string;
+    planId?: string;
   };
 }

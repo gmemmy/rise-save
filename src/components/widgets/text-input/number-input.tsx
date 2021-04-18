@@ -19,7 +19,7 @@ const NumberInput = ({
   return (
     <Input
       keyboardType="number-pad"
-      maxLength={6}
+      maxLength={10}
       placeholder="0.00"
       placeholderTextColor={theme.colors.dark}
       onChangeText={handleTextChange}

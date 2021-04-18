@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import {updateWalletBalance, updatePlanBalance} from '../../redux/actions';
+import {updateWalletBalance} from '../../redux/actions';
 import {Dispatch} from 'redux';
 import {theme} from '../../style/theme';
 import {commaAppend, sizeScale} from '../../utils';
@@ -55,7 +55,7 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
   const route: FundingRoute = useRoute();
   const dispatch: Dispatch<any> = useDispatch();
 
-  const {nairaValue, dollarValue, balanceToFund, type} = route.params;
+  const {nairaValue, dollarValue, type} = route.params;
 
   const walletBalance: string = useSelector(
     (state: any) => state.user.walletBalance,
@@ -64,27 +64,22 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
 
   const handleAddFunds = () => {
     setLoading(true);
-    let amountToFund;
 
     if (type === 'wallet') {
       // set the amount to add to the wallet to be the old wallet amount plus the specifed
-      // amount to add
-      amountToFund = parseFloat(dollarValue) + parseFloat(walletBalance);
-      dispatch(updateWalletBalance(JSON.stringify(amountToFund)));
-    }
-    if (type === 'plan') {
-      // deduct amount to add to plan from current wallet balance
-      const newWalletBalance =
-        parseFloat(walletBalance) - parseFloat(dollarValue);
+      // amount to add(amount to add minus processing fee)
+      // const processingFee = (15 / 100) * parseFloat(nairaValue) * 420;
+      // console.log(processingFee)
+      // const amountWithoutFee = parseFloat(dollarValue) - processingFee;
+      // console.log(amountWithoutFee)
 
-      // update the wallet balance with the new amount bar the plan deduction
-      // update the plan balance to have the specified amount
-      dispatch(updateWalletBalance(JSON.stringify(newWalletBalance)));
-      dispatch(updatePlanBalance(JSON.stringify(dollarValue), '01'));
+      const amountToFund = parseFloat(dollarValue) + parseFloat(walletBalance);
+
+      dispatch(updateWalletBalance(JSON.stringify(amountToFund)));
     }
     setTimeout(() => {
       setLoading(false);
-      navigation.navigate('Payment Successful', {amount: dollarValue});
+      navigation.navigate('Payment Successful', {amount: dollarValue, type});
     }, 1000);
   };
 

@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, shallowEqual} from 'react-redux';
 import Shimmer from 'react-native-shimmer';
 import {theme} from '../../style/theme';
-import {sizeScale} from '../../utils/index';
+import {parseMoneyValue, sizeScale} from '../../utils/index';
 
 // Icon
 const arrowRight = require('../../../assets/images/arrow-right.png');
@@ -155,6 +155,7 @@ interface AddFundsProps {
   recepientSource: string;
   recepientBalance: string;
   type: string;
+  planId?: string;
 }
 
 const AddFunds = ({
@@ -162,6 +163,7 @@ const AddFunds = ({
   recepientSource,
   recepientBalance,
   type,
+  planId,
 }: AddFundsProps) => {
   const [nairaValue, setNairaValue] = React.useState<string>('');
   const [dollarValue, setDollarValue] = React.useState<string>('');
@@ -189,16 +191,13 @@ const AddFunds = ({
 
       if (type === 'plan') {
         setInputValue(amount);
-        if (
-          amount.length >= 1 &&
-          parseFloat(amount) > parseFloat(walletBalance)
-        ) {
+        if (parseFloat(dollarValue) > parseFloat(walletBalance)) {
+          setButtonDisabled(true);
           Toast.showWithGravity(
             'Your wallet balance is too low to fund this plan. Please fund your wallet.',
             500,
             Toast.TOP,
           );
-          setButtonDisabled(true);
         } else {
           setButtonDisabled(false);
         }
@@ -214,19 +213,22 @@ const AddFunds = ({
   };
 
   const setInputValue = value => {
-    const formattedAmount = parseFloat(value);
+    const formattedAmount = Number(value);
     let newValue;
     if (focusedInput === 'naira') {
       newValue = formattedAmount / 420;
-      setDollarValue(newValue.toFixed(2));
+      setDollarValue(parseMoneyValue(newValue));
       setNairaValue(value);
     }
     if (focusedInput === 'dollar') {
       newValue = formattedAmount * 420;
-      setNairaValue(newValue.toFixed(2));
+      setNairaValue(parseMoneyValue(newValue));
       setDollarValue(value);
     }
   };
+
+  const formattedWalletBalance = parseFloat(walletBalance).toFixed(2);
+  const formattedRecepientBalance = parseFloat(recepientBalance).toFixed(2);
 
   return (
     <Container>
@@ -239,7 +241,7 @@ const AddFunds = ({
               </PaymentFormatContainerHeader>
               {type === 'plan' && (
                 <PaymentFormatContainerHeader>
-                  ${walletBalance}
+                  ${formattedWalletBalance}
                 </PaymentFormatContainerHeader>
               )}
             </PaymentFormatContainerHeaderWrapper>
@@ -261,7 +263,7 @@ const AddFunds = ({
             <PaymentFormatContainerHeader>
               {recepientSource}
             </PaymentFormatContainerHeader>
-            <WalletBalance>{recepientBalance}</WalletBalance>
+            <WalletBalance>{formattedRecepientBalance}</WalletBalance>
           </HalfPaymentFormatContainer>
         </PaymentFormatContainer>
         <CurrencyValueWrapper>
@@ -304,6 +306,7 @@ const AddFunds = ({
                 dollarValue,
                 balanceToFund: recepientBalance,
                 type,
+                planId,
               });
             }}>
             Add Money

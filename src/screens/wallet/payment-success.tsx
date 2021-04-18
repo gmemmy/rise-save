@@ -60,6 +60,7 @@ const AnimatedCheckIconWrapper = Animatable.createAnimatableComponent(
 const PaymentSuccessful: React.FC = (): React.ReactElement => {
   const navigation = useNavigation();
   const route: any = useRoute();
+  const {amount, type} = route.params;
 
   return (
     <Container>
@@ -77,8 +78,7 @@ const PaymentSuccessful: React.FC = (): React.ReactElement => {
           />
         </AnimatedCheckIconWrapper>
         <SuccessMessage>
-          You've successfully funded {'\n'} your wallet with $
-          {route.params.amount}
+          You've successfully funded {'\n'} your {type} with ${amount}
         </SuccessMessage>
       </ContentWrapper>
       <ButtonWrapper>

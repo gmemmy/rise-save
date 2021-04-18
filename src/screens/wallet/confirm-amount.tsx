@@ -4,6 +4,9 @@ import styled from 'styled-components/native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {theme} from '../../style/theme';
 import {sizeScale, commaAppend} from '../../utils';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
+import {Dispatch} from 'redux';
+import {updatePlanBalance, updateWalletBalance} from '../../redux/actions';
 
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
@@ -76,13 +79,40 @@ const ButtonWrapper = styled.View`
 `;
 
 const ConfirmAmount = () => {
+  const [loading, setLoading] = React.useState<boolean>(false);
   const navigation = useNavigation();
   const route: FundingRoute = useRoute();
-  const {balanceToFund, type} = route.params;
+  const dispatch: Dispatch<any> = useDispatch();
+
+  const {balanceToFund, type, planId} = route.params;
   const nairaValue = parseFloat(route.params.nairaValue).toFixed(2);
   const dollarValue = parseFloat(route.params.dollarValue).toFixed(2);
 
   const processingFee = (1.5 / 100) * parseFloat(nairaValue);
+
+  // fetch current wallet balance from state
+  const walletBalance: string = useSelector(
+    (state: any) => state.user.walletBalance,
+    shallowEqual,
+  );
+
+  const handlePlanFunding = React.useCallback(() => {
+    setLoading(true);
+    const newWalletBalance =
+      parseFloat(walletBalance) - parseFloat(dollarValue);
+
+    // update the wallet balance with the new amount bar the plan amount deduction
+    dispatch(updateWalletBalance(JSON.stringify(newWalletBalance)));
+
+    // update the plan balance to have the specified amount
+    dispatch(updatePlanBalance(dollarValue, planId));
+
+    // simulate API call for a few seconds to show loader
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate('Payment Successful', {type, amount: dollarValue});
+    }, 1000);
+  }, [dispatch, dollarValue, navigation, planId, type, walletBalance]);
 
   return (
     <Container>
@@ -94,17 +124,21 @@ const ConfirmAmount = () => {
         </AmountToDeposit>
         <AllDetailsWrapper>
           <DetailsContainer>
-            <DetailsTitle>Amount added to wallet</DetailsTitle>
+            <DetailsTitle>Amount added to {type}</DetailsTitle>
             <DetailsValue>₦{commaAppend(nairaValue)}</DetailsValue>
           </DetailsContainer>
           <HorizontalRuler />
-          <DetailsContainer>
-            <DetailsTitle>Processing fee (1.5%)</DetailsTitle>
-            <DetailsValue>
-              ₦{commaAppend(processingFee.toFixed(2))}
-            </DetailsValue>
-          </DetailsContainer>
-          <HorizontalRuler />
+          {type === 'wallet' && (
+            <React.Fragment>
+              <DetailsContainer>
+                <DetailsTitle>Processing fee (1.5%)</DetailsTitle>
+                <DetailsValue>
+                  ₦{commaAppend(processingFee.toFixed(2))}
+                </DetailsValue>
+              </DetailsContainer>
+              <HorizontalRuler />
+            </React.Fragment>
+          )}
           <DetailsContainer>
             <DetailsTitle>Amount in USD</DetailsTitle>
             <DetailsValue>${commaAppend(dollarValue)}</DetailsValue>
@@ -114,15 +148,18 @@ const ConfirmAmount = () => {
       </ContentWrapper>
       <ButtonWrapper>
         <ColoredButton
-          disabled={false}
-          isLoading={false}
+          disabled={loading}
+          isLoading={loading}
           onPress={() => {
-            navigation.navigate('Choose Naira Card', {
-              nairaValue,
-              dollarValue,
-              balanceToFund,
-              type,
-            });
+            type === 'wallet' &&
+              navigation.navigate('Choose Naira Card', {
+                nairaValue,
+                dollarValue,
+                balanceToFund,
+                type,
+                planId,
+              });
+            type === 'plan' && handlePlanFunding();
           }}>
           Add ₦{commaAppend(nairaValue)}
         </ColoredButton>

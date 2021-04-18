@@ -21,6 +21,21 @@ export interface PlanInterface {
       title: string;
       balance: string;
     },
+    {
+      id: string;
+      title: string;
+      balance: string;
+    },
+    {
+      id: string;
+      title: string;
+      balance: string;
+    },
+    {
+      id: string;
+      title: string;
+      balance: string;
+    },
   ];
 }
 

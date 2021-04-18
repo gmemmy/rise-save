@@ -7,8 +7,10 @@ import Wallet from '../../screens/wallet';
 import FundWallet from '../../screens/wallet/fund-wallet';
 import ConfirmAmount from '../../screens/wallet/confirm-amount';
 import ChooseCard from '../../screens/wallet/choose-card';
+import FundPlan from '../../screens/plans/fund-plan';
 import AddPaymentMethod from '../../screens/wallet/add-card-details';
 import PaymentSuccessful from '../../screens/wallet/payment-success';
+import Plans from '../../screens/plans';
 import {theme} from '../../style/theme';
 
 const arrowLeft = require('../../../assets/images/arrow-left.png');
@@ -217,6 +219,76 @@ const HomeStack = () => {
         })}
         name="Choose Naira Card"
         component={ChooseCard}
+      />
+      <Stack.Screen
+        options={({}) => ({
+          headerShown: true,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              label=""
+              truncatedLabel=""
+              backImage={() => (
+                <View
+                  style={{
+                    height: 33,
+                    width: 33,
+                    borderRadius: 33 / 2,
+                    backgroundColor: theme.colors.offTeal,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 20,
+                  }}>
+                  <FastImage
+                    source={arrowLeft}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      height: 14,
+                      width: 14,
+                    }}
+                  />
+                </View>
+              )}
+            />
+          ),
+        })}
+        name="Your Plans"
+        component={Plans}
+      />
+      <Stack.Screen
+        options={({}) => ({
+          headerShown: true,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              label=""
+              truncatedLabel=""
+              backImage={() => (
+                <View
+                  style={{
+                    height: 33,
+                    width: 33,
+                    borderRadius: 33 / 2,
+                    backgroundColor: theme.colors.offTeal,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 20,
+                  }}>
+                  <FastImage
+                    source={arrowLeft}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      height: 14,
+                      width: 14,
+                    }}
+                  />
+                </View>
+              )}
+            />
+          ),
+        })}
+        name="Fund Plan"
+        component={FundPlan}
       />
       <Stack.Screen
         options={({}) => ({
