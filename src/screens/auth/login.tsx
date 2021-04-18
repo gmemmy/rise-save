@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
+import validator from 'validator';
 import {SafeAreaView} from 'react-native-safe-area-context';
-// import {Dispatch} from 'redux';
-// import {useSelector, shallowEqual, useDispatch} from 'react-redux';
-// import {updateUserInfo} from '../../redux/actions';
+import {Dispatch} from 'redux';
+import {useDispatch} from 'react-redux';
+import {updateUserInfo} from '../../redux/actions';
 import {theme} from '../../style/theme';
 import {ms} from 'react-native-size-matters';
 import {sizeScale} from '../../utils';
-import {reduxForm} from 'redux-form';
 
 // components
 import InputField from '../../components/widgets/text-input';
@@ -53,29 +53,79 @@ const ButtonWrapper = styled.View`
   margin-top: 40px;
 `;
 
+const ValidationErrorMessage = styled.Text`
+  color: red;
+  line-height: 20px;
+  font-family: Gelion-Regular;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+const FieldWrapper = styled.View`
+  width: 100%;
+`;
+
 const Login: React.FC = () => {
-  // const dispatch: Dispatch<any> = useDispatch();
-  // const [loading, setLoading] = React.useState<boolean>(false);
+  const dispatch: Dispatch<any> = useDispatch();
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [currentField, setCurrentField] = React.useState<string>('');
+  const [email, setEmail] = React.useState<string>('');
+  const [emailError, setEmailError] = React.useState<string>('');
+  const [passwordError, setPasswordError] = React.useState<string>('');
+  const [isEmailError, setIsEmailError] = React.useState<boolean>(true);
+  const [isPasswordError, setIsPasswordError] = React.useState<boolean>(true);
 
-  // const validationError: any = useSelector(
-  //   (state: any) => state.form.errors.validation,
-  //   shallowEqual,
-  // );
+  const handleValidation = (value: string) => {
+    if (currentField === 'email') {
+      handleEmailValidation(value);
+    }
+    if (currentField === 'password') {
+      handlePasswordValidation(value);
+    }
+  };
 
-  // const handelLogin = React.useCallback(() => {
-  //   let setUserInfo: any;
-  //   // if (!validationError.hasError) {
-  //   //   setLoading(true);
-  //   //   setUserInfo = setTimeout(() => {
-  //   //     setLoading(false);
-  //   //     dispatch(updateUserInfo(true, 'atawodiemmanuel@gmail.com'));
-  //   //   }, 3000);
-  //   }
-  //   // return () => {
-  //   //   clearTimeout(setUserInfo);
-  //   // };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const handleEmailValidation = (value: string) => {
+    if (!validator.isEmpty(value)) {
+      if (!validator.isEmail(value)) {
+        setIsEmailError(true);
+        setEmailError('Please input a valid email address.');
+      }
+      if (validator.isEmail(value)) {
+        setIsEmailError(false);
+        setEmailError('');
+        setEmail(value);
+      }
+    }
+    if (validator.isEmpty(value)) {
+      setIsEmailError(true);
+      setEmailError('This field is required.');
+    }
+  };
+
+  const handlePasswordValidation = (value: string) => {
+    if (!validator.isEmpty(value)) {
+      setIsPasswordError(false);
+      setPasswordError('');
+    }
+    if (validator.isEmpty(value)) {
+      setIsPasswordError(true);
+      setPasswordError('This field is required.');
+    }
+  };
+
+  const handelLogin = React.useCallback(() => {
+    let setUserInfo: any;
+    if (!isPasswordError && !isEmailError) {
+      setLoading(true);
+      setUserInfo = setTimeout(() => {
+        setLoading(false);
+        dispatch(updateUserInfo(true, email));
+      }, 3000);
+      return () => {
+        clearTimeout(setUserInfo);
+      };
+    }
+  }, [dispatch, email, isEmailError, isPasswordError]);
 
   return (
     <Wrapper>
@@ -94,11 +144,38 @@ const Login: React.FC = () => {
           dollar-denominated investment portfolio.
         </SubText>
         <InputFieldsWrapper>
-          <InputField placeholder="Email Address" type="email" />
-          <InputField placeholder="Password" type="password" />
+          <FieldWrapper>
+            <InputField
+              placeholder="Email Address"
+              type="email"
+              handleInputChange={handleValidation}
+              onFocus={() => {
+                setCurrentField('email');
+              }}
+            />
+            {emailError.length >= 1 && (
+              <ValidationErrorMessage>{emailError}</ValidationErrorMessage>
+            )}
+          </FieldWrapper>
+          <FieldWrapper>
+            <InputField
+              placeholder="Password"
+              type="password"
+              handleInputChange={handleValidation}
+              onFocus={() => {
+                setCurrentField('password');
+              }}
+            />
+            {passwordError.length >= 1 && (
+              <ValidationErrorMessage>{passwordError}</ValidationErrorMessage>
+            )}
+          </FieldWrapper>
         </InputFieldsWrapper>
         <ButtonWrapper>
-          <ColoredButton disabled={false} isLoading={false} onPress={() => {}}>
+          <ColoredButton
+            disabled={loading || isPasswordError || isEmailError}
+            isLoading={loading}
+            onPress={handelLogin}>
             Sign In
           </ColoredButton>
         </ButtonWrapper>
@@ -107,6 +184,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default reduxForm({
-  form: 'fieldLevelValidation', // a unique identifier for this form
-})(Login);
+export default Login;
