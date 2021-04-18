@@ -2,16 +2,19 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import {updateWalletBalance} from '../../redux/actions';
+import {
+  updateWalletBalance,
+  updateTransactionHistory,
+} from '../../redux/actions';
 import {Dispatch} from 'redux';
 import {theme} from '../../style/theme';
 import {commaAppend, sizeScale} from '../../utils';
 import {vs} from 'react-native-size-matters';
+import {FundingRoute} from '../../interface';
 
 // Components
 import InputField from '../../components/widgets/text-input';
 import ColoredButton from '../../components/widgets/buttons/colored-button';
-import {FundingRoute} from '../../interface';
 
 const Container = styled.View`
   flex: 1;
@@ -55,7 +58,7 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
   const route: FundingRoute = useRoute();
   const dispatch: Dispatch<any> = useDispatch();
 
-  const {nairaValue, dollarValue, type} = route.params;
+  const {nairaValue, dollarValue, type, id} = route.params;
 
   const walletBalance: string = useSelector(
     (state: any) => state.user.walletBalance,
@@ -66,16 +69,17 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
     setLoading(true);
 
     if (type === 'wallet') {
-      // set the amount to add to the wallet to be the old wallet amount plus the specifed
-      // amount to add(amount to add minus processing fee)
-      // const processingFee = (15 / 100) * parseFloat(nairaValue) * 420;
-      // console.log(processingFee)
-      // const amountWithoutFee = parseFloat(dollarValue) - processingFee;
-      // console.log(amountWithoutFee)
-
       const amountToFund = parseFloat(dollarValue) + parseFloat(walletBalance);
 
       dispatch(updateWalletBalance(JSON.stringify(amountToFund)));
+      dispatch(
+        updateTransactionHistory(
+          id,
+          'Deposit',
+          new Date().toDateString(),
+          dollarValue,
+        ),
+      );
     }
     setTimeout(() => {
       setLoading(false);

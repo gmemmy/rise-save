@@ -2,9 +2,9 @@ import * as React from 'react';
 import {StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Dispatch} from 'redux';
-import {useSelector, shallowEqual, useDispatch} from 'react-redux';
-import {updateUserInfo} from '../../redux/actions';
+// import {Dispatch} from 'redux';
+// import {useSelector, shallowEqual, useDispatch} from 'react-redux';
+// import {updateUserInfo} from '../../redux/actions';
 import {theme} from '../../style/theme';
 import {ms} from 'react-native-size-matters';
 import {sizeScale} from '../../utils';
@@ -53,7 +53,7 @@ const ButtonWrapper = styled.View`
   margin-top: 40px;
 `;
 
-const Login: React.FC = (props) => {
+const Login: React.FC = () => {
   // const dispatch: Dispatch<any> = useDispatch();
   // const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -77,8 +77,6 @@ const Login: React.FC = (props) => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  console.log(props)
-
   return (
     <Wrapper>
       <StatusBar
@@ -100,10 +98,7 @@ const Login: React.FC = (props) => {
           <InputField placeholder="Password" type="password" />
         </InputFieldsWrapper>
         <ButtonWrapper>
-          <ColoredButton
-            disabled={props.pristine}
-            isLoading={props.pristine}
-            onPress={() => {}}>
+          <ColoredButton disabled={false} isLoading={false} onPress={() => {}}>
             Sign In
           </ColoredButton>
         </ButtonWrapper>

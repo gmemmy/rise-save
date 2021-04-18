@@ -7,6 +7,8 @@ import {
   SET_FORM_ERROR,
   SetPLanBalance,
   SET_PLAN_BALANCE,
+  SetTransactionHistory,
+  SET_TRANSACTION_HISTORY,
 } from '../types';
 
 export function updateUserInfo(isAuthenticated: boolean, email: string) {
@@ -37,6 +39,24 @@ export function updatePlanBalance(newBalance: string, id: string) {
   const action: SetPLanBalance = {
     type: SET_PLAN_BALANCE,
     payload: {itemId: id, amount: newBalance},
+  };
+  return (dispatch: any) => dispatch(action);
+}
+
+export function updateTransactionHistory(
+  id: string,
+  title: string,
+  date: string,
+  amount: string,
+) {
+  const action: SetTransactionHistory = {
+    type: SET_TRANSACTION_HISTORY,
+    payload: {
+      id,
+      title,
+      date,
+      amount,
+    },
   };
   return (dispatch: any) => dispatch(action);
 }

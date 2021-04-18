@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { vs } from 'react-native-size-matters';
+import {vs} from 'react-native-size-matters';
 import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
-import { sizeScale } from '../../utils';
+import {commaAppend, sizeScale} from '../../utils';
 import TouchableItem from '../widgets/buttons/touchable-item';
 
 const greenCross = require('../../../assets/images/green-cross.png');
@@ -71,6 +71,7 @@ const HorizontalRuler = styled.View`
 `;
 
 const TransactionSummary = ({transaction}): React.ReactElement => {
+  const {title, amount, date} = transaction;
   return (
     <TouchableItem>
       <Container>
@@ -79,10 +80,10 @@ const TransactionSummary = ({transaction}): React.ReactElement => {
         </IconWrapper>
         <TransactionDetailsWrapper>
           <TransactionDetailsLeftWrapper>
-            <TransactionTitle>Deposit</TransactionTitle>
-            <TransactionDate>April 18, 2021</TransactionDate>
+            <TransactionTitle>{title}</TransactionTitle>
+            <TransactionDate>{date}</TransactionDate>
           </TransactionDetailsLeftWrapper>
-          <TransactionAmount>+ $2,000.00</TransactionAmount>
+          <TransactionAmount>+ ${commaAppend(amount)}</TransactionAmount>
         </TransactionDetailsWrapper>
       </Container>
       <HorizontalRuler />

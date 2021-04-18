@@ -6,7 +6,11 @@ import {theme} from '../../style/theme';
 import {sizeScale, commaAppend} from '../../utils';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {Dispatch} from 'redux';
-import {updatePlanBalance, updateWalletBalance} from '../../redux/actions';
+import {
+  updatePlanBalance,
+  updateTransactionHistory,
+  updateWalletBalance,
+} from '../../redux/actions';
 
 // Components
 import ColoredButton from '../../components/widgets/buttons/colored-button';
@@ -106,6 +110,16 @@ const ConfirmAmount = () => {
 
     // update the plan balance to have the specified amount
     dispatch(updatePlanBalance(dollarValue, planId));
+
+    // update transaction history state
+    dispatch(
+      updateTransactionHistory(
+        planId,
+        'You funded your plan',
+        new Date().toDateString(),
+        dollarValue,
+      ),
+    );
 
     // simulate API call for a few seconds to show loader
     setTimeout(() => {

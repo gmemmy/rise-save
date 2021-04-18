@@ -4,6 +4,7 @@ import FastImage from 'react-native-fast-image';
 import TouchableItem from '../widgets/buttons/touchable-item';
 import {theme} from '../../style/theme';
 import {useNavigation} from '@react-navigation/native';
+import {parseMoneyValue} from '../../utils';
 
 const testImage = require('../../../assets/images/test-plan.png');
 
@@ -82,7 +83,7 @@ const Plan = ({plan}: Plan) => {
           </PercentageChangeTag>
         </ImageWrapper>
         <PlanTitle>{title}</PlanTitle>
-        <PlanAmount>${balance}</PlanAmount>
+        <PlanAmount>${parseMoneyValue(Number(balance))}</PlanAmount>
       </Container>
     </TouchableItem>
   );

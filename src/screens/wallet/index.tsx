@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, TouchableWithoutFeedback} from 'react-native';
 import styled from 'styled-components/native';
 import {theme} from '../../style/theme';
 import {useNavigation} from '@react-navigation/native';
+import {shallowEqual, useSelector} from 'react-redux';
+import {generateRandomNum} from '../../utils';
 
 // components
 import WalletBalance from '../../components/template/wallet-balance';
@@ -32,6 +34,7 @@ const ButtonsWrapper = styled.View`
 const TransactionHistory = styled.FlatList`
   width: 100%;
   margin-top: 43px;
+  background-color: ${theme.colors.white};
 `;
 
 const ListHeaderWrapper = styled.View`
@@ -58,8 +61,19 @@ const ListContainerBottomPadding = styled.View`
   height: 20px;
 `;
 
+const NoLIstContentMessage = styled.Text`
+  color: ${theme.colors.grey};
+  margin-top: 30px;
+  font-family: Gelion-Regular;
+  font-size: 15px;
+`;
+
 const renderTransaction = ({item}) => {
-  return <TransactionSummary key={item.id} transaction={item} />;
+  return (
+    <TouchableWithoutFeedback>
+      <TransactionSummary key={generateRandomNum()} transaction={item} />
+    </TouchableWithoutFeedback>
+  );
 };
 
 const ListHeader = () => {
@@ -73,8 +87,21 @@ const ListHeader = () => {
   );
 };
 
+const EmptyList = () => {
+  return (
+    <NoLIstContentMessage>
+      You do not have any recent transactions.
+    </NoLIstContentMessage>
+  );
+};
+
 const Wallet = () => {
   const navigation = useNavigation();
+  const transactionHistory: string = useSelector(
+    (state: any) => state.transaction.transactions,
+    shallowEqual,
+  );
+
   return (
     <Container>
       <StatusBar
@@ -106,54 +133,14 @@ const Wallet = () => {
             Fund Wallet
           </ColoredButton>
         </ButtonsWrapper>
-        <TransactionHistory
-          data={[
-            {
-              id: '01',
-              text: 'hello',
-            },
-            {
-              id: '02',
-              text: 'hello',
-            },
-            {
-              id: '03',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-            {
-              id: '04',
-              text: 'hello',
-            },
-          ]}
-          renderItem={renderTransaction}
-          ListHeaderComponent={<ListHeader />}
-          ListFooterComponent={<ListContainerBottomPadding />}
-        />
       </WalletBalanceWrapper>
+      <TransactionHistory
+        data={transactionHistory}
+        renderItem={renderTransaction}
+        ListHeaderComponent={<ListHeader />}
+        ListEmptyComponent={<EmptyList />}
+        keyExtractor={() => generateRandomNum()}
+      />
     </Container>
   );
 };

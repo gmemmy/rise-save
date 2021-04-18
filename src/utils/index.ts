@@ -28,3 +28,6 @@ export const parseMoneyValue = (value: number) => {
   const decLength = dec && dec.length > 2 ? dec.length : 2;
   return Number(value).toFixed(decLength);
 };
+
+export const generateRandomNum = () =>
+  JSON.stringify(Math.floor(Math.random() * 1001));
