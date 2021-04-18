@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* risevestreactnativechallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* risevestreactnativechallengeTests.m */; };
+		105F3DC85A65412F925C0C24 /* Gelion-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		5B240AD3DFC94E809556DD72 /* Gelion-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		88710FEB5B30DAEDD11FEC75 /* libPods-risevestreactnativechallenge-risevestreactnativechallengeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7906A6A538568DB570F46D3A /* libPods-risevestreactnativechallenge-risevestreactnativechallengeTests.a */; };
 		967604C601D4C61250C3E46D /* libPods-risevestreactnativechallenge.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFF8C2014D14BD7808B43CE0 /* libPods-risevestreactnativechallenge.a */; };
-		DC499AF4C6684A88866DD51D /* Gelion-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */; };
 		B740AFA8FBC44FF3801BAA9B /* Gelion-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA48D9B2534044B2BABF8893 /* Gelion-Light.ttf */; };
-		105F3DC85A65412F925C0C24 /* Gelion-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */; };
 		C0F9987A4E81404AA2E0749D /* Gelion-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C4ACDDB11424FD984C6C32E /* Gelion-Regular.ttf */; };
-		5B240AD3DFC94E809556DD72 /* Gelion-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */; };
+		DC499AF4C6684A88866DD51D /* Gelion-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,25 +35,25 @@
 		00E356EE1AD99517003FC87E /* risevestreactnativechallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = risevestreactnativechallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* risevestreactnativechallengeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = risevestreactnativechallengeTests.m; sourceTree = "<group>"; };
+		087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gelion-SemiBold.ttf"; path = "../assets/fonts/Gelion-SemiBold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* risevestreactnativechallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = risevestreactnativechallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = risevestreactnativechallenge/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = risevestreactnativechallenge/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = risevestreactnativechallenge/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = risevestreactnativechallenge/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = risevestreactnativechallenge/main.m; sourceTree = "<group>"; };
+		1C4ACDDB11424FD984C6C32E /* Gelion-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gelion-Regular.ttf"; path = "../assets/fonts/Gelion-Regular.ttf"; sourceTree = "<group>"; };
 		3A9317447C566BE30297678C /* Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.release.xcconfig"; path = "Target Support Files/Pods-risevestreactnativechallenge-risevestreactnativechallengeTests/Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.release.xcconfig"; sourceTree = "<group>"; };
 		7906A6A538568DB570F46D3A /* libPods-risevestreactnativechallenge-risevestreactnativechallengeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-risevestreactnativechallenge-risevestreactnativechallengeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = risevestreactnativechallenge/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFF8C2014D14BD7808B43CE0 /* libPods-risevestreactnativechallenge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-risevestreactnativechallenge.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gelion-Bold.ttf"; path = "../assets/fonts/Gelion-Bold.ttf"; sourceTree = "<group>"; };
+		BA48D9B2534044B2BABF8893 /* Gelion-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gelion-Light.ttf"; path = "../assets/fonts/Gelion-Light.ttf"; sourceTree = "<group>"; };
+		CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gelion-Medium.ttf"; path = "../assets/fonts/Gelion-Medium.ttf"; sourceTree = "<group>"; };
 		D96BFA07C78AA9DC583026BF /* Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.debug.xcconfig"; path = "Target Support Files/Pods-risevestreactnativechallenge-risevestreactnativechallengeTests/Pods-risevestreactnativechallenge-risevestreactnativechallengeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DB06950A1AE9F553923E5C8C /* Pods-risevestreactnativechallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-risevestreactnativechallenge.release.xcconfig"; path = "Target Support Files/Pods-risevestreactnativechallenge/Pods-risevestreactnativechallenge.release.xcconfig"; sourceTree = "<group>"; };
 		E9BABB26C60700FFEF6537CB /* Pods-risevestreactnativechallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-risevestreactnativechallenge.debug.xcconfig"; path = "Target Support Files/Pods-risevestreactnativechallenge/Pods-risevestreactnativechallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */ = {isa = PBXFileReference; name = "Gelion-Bold.ttf"; path = "../assets/fonts/Gelion-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BA48D9B2534044B2BABF8893 /* Gelion-Light.ttf */ = {isa = PBXFileReference; name = "Gelion-Light.ttf"; path = "../assets/fonts/Gelion-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */ = {isa = PBXFileReference; name = "Gelion-Medium.ttf"; path = "../assets/fonts/Gelion-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1C4ACDDB11424FD984C6C32E /* Gelion-Regular.ttf */ = {isa = PBXFileReference; name = "Gelion-Regular.ttf"; path = "../assets/fonts/Gelion-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */ = {isa = PBXFileReference; name = "Gelion-SemiBold.ttf"; path = "../assets/fonts/Gelion-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +116,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3F42A957EA4049BC870BA8DB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */,
+				BA48D9B2534044B2BABF8893 /* Gelion-Light.ttf */,
+				CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */,
+				1C4ACDDB11424FD984C6C32E /* Gelion-Regular.ttf */,
+				087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,19 +171,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		3F42A957EA4049BC870BA8DB /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				B7D3D83489AE42F0B95F0C47 /* Gelion-Bold.ttf */,
-				BA48D9B2534044B2BABF8893 /* Gelion-Light.ttf */,
-				CAE42D35934A47D4960F5456 /* Gelion-Medium.ttf */,
-				1C4ACDDB11424FD984C6C32E /* Gelion-Regular.ttf */,
-				087C47DE83974E48B02E9E3F /* Gelion-SemiBold.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -233,7 +233,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RisevestReactNativeChallenge" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "risevestreactnativechallenge" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -667,7 +667,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "RisevestReactNativeChallenge" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "risevestreactnativechallenge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

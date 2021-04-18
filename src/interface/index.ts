@@ -16,3 +16,24 @@ export interface TouchableProps extends ViewProps {
   onPress?: () => void;
   children: React.ReactNode;
 }
+
+export interface CurrentPlan {
+  balance: string;
+  id: string;
+  title: string;
+}
+
+export interface FundingRoute {
+  key: string;
+  name: string;
+  params: {
+    amount: string;
+    id: string;
+    title: string;
+    balanceToFund: string;
+    type: string;
+    nairaValue: string;
+    dollarValue: string;
+    planId?: string;
+  };
+}
