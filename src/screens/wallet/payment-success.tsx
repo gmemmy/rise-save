@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import * as Animatable from 'react-native-animatable';
 import MakeItRain from 'react-native-make-it-rain';
 import {theme} from '../../style/theme';
-import {sizeScale} from '../../utils';
+import {commaAppend, sizeScale} from '../../utils';
 import {ms, s, vs} from 'react-native-size-matters';
 import ColoredButton from '../../components/widgets/buttons/colored-button';
 
@@ -78,7 +78,8 @@ const PaymentSuccessful: React.FC = (): React.ReactElement => {
           />
         </AnimatedCheckIconWrapper>
         <SuccessMessage>
-          You've successfully funded {'\n'} your {type} with ${amount}
+          You've successfully funded {'\n'} your {type} with $
+          {commaAppend(amount)}
         </SuccessMessage>
       </ContentWrapper>
       <ButtonWrapper>

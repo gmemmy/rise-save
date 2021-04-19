@@ -12,6 +12,7 @@ import WalletBalance from '../../components/template/wallet-balance';
 import ColoredButton from '../../components/widgets/buttons/colored-button';
 import TransactionSummary from '../../components/template/transaction-summary';
 import TouchableItem from '../../components/widgets/buttons/touchable-item';
+import {TransactionItem} from '../../interface';
 
 const Container = styled.View`
   flex: 1;
@@ -41,24 +42,21 @@ const ListHeaderWrapper = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
 `;
 
 const ListHeaderLeft = styled.Text`
-  font-size: 15px;
+  font-size: 16px;
   line-height: 20px;
   font-family: Gelion-Regular;
   color: ${theme.colors.dark};
 `;
 
 const ListHeaderRight = styled.Text`
-  font-size: 11px;
+  font-size: 12px;
   line-height: 13px;
   font-family: Gelion-Regular;
   color: ${theme.colors.defaultTeal};
-`;
-
-const ListContainerBottomPadding = styled.View`
-  height: 20px;
 `;
 
 const NoLIstContentMessage = styled.Text`
@@ -97,7 +95,7 @@ const EmptyList = () => {
 
 const Wallet = () => {
   const navigation = useNavigation();
-  const transactionHistory: string = useSelector(
+  const transactionHistory: TransactionItem[] = useSelector(
     (state: any) => state.transaction.transactions,
     shallowEqual,
   );

@@ -9,7 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, shallowEqual} from 'react-redux';
 import Shimmer from 'react-native-shimmer';
 import {theme} from '../../style/theme';
-import {parseMoneyValue, sizeScale} from '../../utils/index';
+import {commaAppend, parseMoneyValue, sizeScale} from '../../utils/index';
 
 // Icon
 const arrowRight = require('../../../assets/images/arrow-right.png');
@@ -92,8 +92,9 @@ const CurrencyValueWrapper = styled.View`
 
 const CurrencyValue = styled.View`
   flex-direction: row;
-  width: 85%;
+  width: 100%;
   justify-content: space-between;
+  padding-horizontal: 28px;
 `;
 
 const CurrencySymbol = styled.Text`
@@ -144,6 +145,8 @@ const ButtonWrapper = styled.View`
 const InputWrapper = styled.View`
   height: 100%;
   min-width: 16%;
+  flex-grow: 0.1;
+  align-items: flex-end;
 `;
 
 const AnimatedRateContainer = Animatable.createAnimatableComponent(
@@ -227,8 +230,12 @@ const AddFunds = ({
     }
   };
 
-  const formattedWalletBalance = parseFloat(walletBalance).toFixed(2);
-  const formattedRecepientBalance = parseFloat(recepientBalance).toFixed(2);
+  const formattedWalletBalance = commaAppend(
+    parseMoneyValue(Number(walletBalance)),
+  );
+  const formattedRecepientBalance = commaAppend(
+    parseMoneyValue(Number(recepientBalance)),
+  );
 
   return (
     <Container>
@@ -274,6 +281,7 @@ const AddFunds = ({
                 onFocus={() => setFocusedInput('naira')}
                 handleTextChange={handleTextChange}
                 value={nairaValue}
+                textAlign="right"
               />
             </InputWrapper>
           </CurrencyValue>
@@ -292,6 +300,7 @@ const AddFunds = ({
                 onFocus={() => setFocusedInput('dollar')}
                 handleTextChange={handleTextChange}
                 value={dollarValue}
+                textAlign="right"
               />
             </InputWrapper>
           </CurrencyValue>
@@ -300,6 +309,9 @@ const AddFunds = ({
           <ColoredButton
             disabled={buttonDisabled}
             isLoading={false}
+            style={{
+              height: 40,
+            }}
             onPress={() => {
               navigation.navigate('Confirm Amount', {
                 nairaValue,

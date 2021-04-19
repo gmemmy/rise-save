@@ -55,7 +55,7 @@ const Amount = styled.Text`
   line-height: 28px;
   color: ${theme.colors.dark};
   font-family: Gelion-Medium;
-  top: 6px;
+  bottom: 5px;
 `;
 
 const WalletIconWrapper = styled.View`
@@ -86,7 +86,7 @@ const ContainerBottomWrapperText = styled.Text`
   text-align: center;
   font-family: Gelion-SemiBold;
   line-height: 13px;
-  font-size: ${sizeScale(ms(11, 0.2), 'px')};
+  font-size: ${sizeScale(ms(12, 0.2), 'px')};
 `;
 
 const WalletBalance: React.FC = (): React.ReactElement => {

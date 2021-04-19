@@ -42,3 +42,9 @@ export interface FundingRoute {
     planId?: string;
   };
 }
+
+export interface TransactionItem {
+  title: string;
+  date: string;
+  amount: string;
+}
