@@ -16,6 +16,8 @@ target 'risevestreactnativechallenge' do
 
   pod 'react-native-shimmer', :path => '../node_modules/react-native-shimmer'
 
+  pod 'ReactNativeExceptionHandler', :path => '../node_modules/react-native-exception-handler'
+
   target 'risevestreactnativechallengeTests' do
     inherit! :complete
     # Pods for testing
