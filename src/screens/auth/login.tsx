@@ -85,18 +85,19 @@ const Login: React.FC = () => {
   };
 
   const handleEmailValidation = (value: string) => {
-    if (!validator.isEmpty(value)) {
-      if (!validator.isEmail(value)) {
+    const trimmedValue = value.trim();
+    if (!validator.isEmpty(trimmedValue)) {
+      if (!validator.isEmail(trimmedValue)) {
         setIsEmailError(true);
         setEmailError('Please input a valid email address.');
       }
-      if (validator.isEmail(value)) {
+      if (validator.isEmail(trimmedValue)) {
         setIsEmailError(false);
         setEmailError('');
-        setEmail(value);
+        setEmail(trimmedValue);
       }
     }
-    if (validator.isEmpty(value)) {
+    if (validator.isEmpty(trimmedValue)) {
       setIsEmailError(true);
       setEmailError('This field is required.');
     }

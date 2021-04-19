@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import cardsy from 'cardsy';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {
   updateWalletBalance,
@@ -54,21 +55,49 @@ const ButtonWrapper = styled.View`
 
 const AddPaymentMethod: React.FC = (): React.ReactElement => {
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [type, setType] = React.useState<string>('');
+  const [cardNum, setCardNum] = React.useState<string>('');
+  const [expDate, setExpDate] = React.useState<string>('');
+  const [cvv, setCvv] = React.useState<string>('');
+  const [isValidationError, setIsValidationError] = React.useState<boolean>(
+    true,
+  );
   const navigation = useNavigation();
   const route: FundingRoute = useRoute();
   const dispatch: Dispatch<any> = useDispatch();
 
-  const {nairaValue, dollarValue, type, id} = route.params;
+  const {nairaValue, dollarValue, id} = route.params;
+  const fundingType = route.params.type;
 
   const walletBalance: string = useSelector(
     (state: any) => state.user.walletBalance,
     shallowEqual,
   );
 
+  const handleValidation = (text: string) => {
+    switch (type) {
+      case 'card-number':
+        setCardNum(cardsy.format.number(text));
+        break;
+      case 'card-cvv':
+        setCvv(cardsy.format.cvc(text));
+        break;
+      case 'card-expiry-number':
+        setExpDate(cardsy.format.expiryString(text, '/'));
+        break;
+      default:
+        text;
+        break;
+    }
+    if (cardNum.length >= 1 && cvv.length >= 1 && expDate.length >= 1) {
+      setIsValidationError(false);
+    }
+  };
+
   const handleAddFunds = () => {
     setLoading(true);
 
-    if (type === 'wallet') {
+    if (fundingType === 'wallet') {
       const amountToFund = parseFloat(dollarValue) + parseFloat(walletBalance);
 
       dispatch(updateWalletBalance(JSON.stringify(amountToFund)));
@@ -83,7 +112,10 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
     }
     setTimeout(() => {
       setLoading(false);
-      navigation.navigate('Payment Successful', {amount: dollarValue, type});
+      navigation.navigate('Payment Successful', {
+        amount: dollarValue,
+        type: fundingType,
+      });
     }, 1000);
   };
 
@@ -91,20 +123,47 @@ const AddPaymentMethod: React.FC = (): React.ReactElement => {
     <Container>
       <ContentWrapper>
         <CardNumberInputWrapper>
-          <InputField placeholder="Card Number" type="card-number" />
+          <InputField
+            placeholder="Card Number"
+            type="card-number"
+            handleInputChange={handleValidation}
+            onFocus={() => {
+              setType('card-number');
+            }}
+            keyboardType="number-pad"
+            value={cardNum}
+          />
         </CardNumberInputWrapper>
         <ContentBottomWrapper>
           <ContentBottomInputWrapper>
-            <InputField placeholder="MM/YY" type="card-expiry-number" />
+            <InputField
+              placeholder="MM/YY"
+              type="card-expiry-number"
+              handleInputChange={handleValidation}
+              onFocus={() => {
+                setType('card-expiry-number');
+              }}
+              keyboardType="number-pad"
+              value={expDate}
+            />
           </ContentBottomInputWrapper>
           <ContentBottomInputWrapper>
-            <InputField placeholder="CVV" type="card-cvv" />
+            <InputField
+              placeholder="CVV"
+              type="card-cvv"
+              handleInputChange={handleValidation}
+              onFocus={() => {
+                setType('card-cvv');
+              }}
+              keyboardType="number-pad"
+              value={cvv}
+            />
           </ContentBottomInputWrapper>
         </ContentBottomWrapper>
       </ContentWrapper>
       <ButtonWrapper>
         <ColoredButton
-          disabled={loading}
+          disabled={loading || isValidationError}
           isLoading={loading}
           onPress={() => {
             handleAddFunds();

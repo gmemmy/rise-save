@@ -11,6 +11,8 @@ export interface FormField extends TextInputProps {
   handleInputChange: (value: string) => void;
   inputValue?: string;
   onFocus: () => void;
+  keyboadrdType?: string;
+  value?: string;
 }
 
 export interface TouchableProps extends ViewProps {

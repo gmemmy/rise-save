@@ -51,6 +51,8 @@ const InputField = ({
   placeholder,
   handleInputChange,
   onFocus,
+  keyboardType,
+  value,
 }: FormField) => {
   const [hide, setHide] = React.useState<boolean>(false);
 
@@ -64,6 +66,8 @@ const InputField = ({
           secureTextEntry={type === 'password' && hide}
           onChangeText={text => handleInputChange(text)}
           onFocus={onFocus}
+          keyboardType={keyboardType}
+          value={value}
         />
         {type === 'password' && (
           <TouchableItem
