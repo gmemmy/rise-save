@@ -24,8 +24,8 @@ export function Navigator({isAuthenticated}: {isAuthenticated: boolean}) {
   return (
     <SafeAreaProvider>
       <NavigationContainer theme={MyTheme}>
-        {/* {!isAuthenticated ? <AuthApp /> : <MainApp />} */}
-        <MainApp />
+        {!isAuthenticated ? <AuthApp /> : <MainApp />}
+        {/* <MainApp /> */}
       </NavigationContainer>
     </SafeAreaProvider>
   );

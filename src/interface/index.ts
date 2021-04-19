@@ -8,6 +8,11 @@ export type Fonts = keyof Theme['font'];
 export interface FormField extends TextInputProps {
   type: string;
   placeholder: string;
+  handleInputChange: (value: string) => void;
+  inputValue?: string;
+  onFocus: () => void;
+  keyboadrdType?: string;
+  value?: string;
 }
 
 export interface TouchableProps extends ViewProps {
