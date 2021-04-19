@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Alert} from 'react-native';
 import {useSelector, shallowEqual} from 'react-redux';
-// import 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 import {
   setJSExceptionHandler,
   setNativeExceptionHandler,
