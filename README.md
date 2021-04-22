@@ -3,3 +3,38 @@
 ![](https://github.com/gmemmy/risevest-react-native-challenge/blob/develop/coverage/badge-lines.svg?sanitize=true)
 ![](https://github.com/gmemmy/risevest-react-native-challenge/blob/develop/coverage/badge-statements.svg?sanitize=true)
 # risevest-react-native-challenge
+
+## 📖 Getting started
+
+1. Clone this repository into your local machine:
+```
+git clone https://github.com/gmemmy/risevest-react-native-challenge.git
+```
+2. Install dependencies
+```
+yarn
+```
+
+## Features
+Below are the features of this project.
+
+Users can signin with a valid email address and password.<br/>
+Users can fund their wallets from a debit card(not a real transaction).<br/>
+Users can fund their plans from their wallet balance.<br/>
+Users can view the history of their transactions.<br/>
+
+## Technologies used
+
+Modern JavaScript technologies were adopted for this project
+
+ES2015: Also known as ES6 or ES2015 or ECMASCRIPT 6, is a new and widely used version of Javascript
+that makes it compete healthily with other languages.
+
+React Native: A javascript library created by Facebook for bulding Android/iOS compatible mobile applications.
+
+
+## Testing
+- To run test suites, run `yarn test`
+
+## Author:
+Atawodi Emmanuel.
