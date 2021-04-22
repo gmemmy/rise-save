@@ -35,7 +35,7 @@ setNativeExceptionHandler(errorString => {
   console.log('setNativeExceptionHandler', errorString);
 });
 
-export const App = () => {
+const App = () => {
   const isAuthenticated: boolean = useSelector(
     (state: any) => state.user.isAuthenticated,
     shallowEqual,
@@ -48,3 +48,5 @@ export const App = () => {
     </BaseThemeProvider>
   );
 };
+
+export default App;
