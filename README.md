@@ -4,6 +4,8 @@
 ![](https://github.com/gmemmy/risevest-react-native-challenge/blob/develop/coverage/badge-statements.svg?sanitize=true)
 # rise-save
 
+This app can be downloaded for android here - https://drive.google.com/file/d/1R5c1JWfDfTX8nPO2ByhgxTLvI7wsB3dW/view?usp=sharing
+
 ## 📖 Getting started
 
 1. Clone this repository unto your local machine:
